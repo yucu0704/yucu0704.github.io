@@ -4,8 +4,7 @@ date: 2026-05-23 14:00:00
 tags: [GitHub Actions, CI/CD, Hexo, DevOps, 自动化]
 categories: [技术教程]
 ---
-
-## 为什么要自动化？
+## 为什么要自动化？ llllllllll
 
 之前我更新博客需要手动执行两条命令：
 
