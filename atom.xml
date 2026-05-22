@@ -6,7 +6,7 @@
   <link href="https://yucu666.github.io/atom.xml" rel="self"/>
   
   <link href="https://yucu666.github.io/"/>
-  <updated>2026-05-22T19:53:32.876Z</updated>
+  <updated>2026-05-22T21:26:26.652Z</updated>
   <id>https://yucu666.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用 GitHub Actions 自动化博客构建与部署</title>
+    <link href="https://yucu666.github.io/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
+    <id>https://yucu666.github.io/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/</id>
+    <published>2026-05-23T06:00:00.000Z</published>
+    <updated>2026-05-22T21:26:26.652Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;为什么要自动化？&quot;&gt;&lt;a href=&quot;#为什么要自动化？&quot; class=&quot;headerlink&quot; title=&quot;为什么要自动化？&quot;&gt;&lt;/a&gt;为什么要自动化？&lt;/h2&gt;&lt;p&gt;之前我更新博客需要手动执行两条命令：&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="DevOps" scheme="https://yucu666.github.io/tags/DevOps/"/>
+    
+    <category term="GitHub Actions" scheme="https://yucu666.github.io/tags/GitHub-Actions/"/>
+    
+    <category term="CI/CD" scheme="https://yucu666.github.io/tags/CI-CD/"/>
+    
+    <category term="Hexo" scheme="https://yucu666.github.io/tags/Hexo/"/>
+    
+    <category term="自动化" scheme="https://yucu666.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>探索 AI Agent：构建你的第一个智能体</title>

@@ -1,88 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>为什么 Rust 正在改变系统编程的未来</title>
-    <url>/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/</url>
-    <content><![CDATA[<h2 id="编程语言的进化方向"><a href="#编程语言的进化方向" class="headerlink" title="编程语言的进化方向"></a>编程语言的进化方向</h2><p>从 C 到 C++，从 Java 到 Go，每一代系统编程语言都在尝试解决前一代的痛点。而 Rust 的出现，真正改变了一个根本性难题——<strong>如何在保证内存安全的同时不牺牲性能</strong>。</p>
-<h2 id="🦀-所有权系统：Rust-的核心创新"><a href="#🦀-所有权系统：Rust-的核心创新" class="headerlink" title="🦀 所有权系统：Rust 的核心创新"></a>🦀 所有权系统：Rust 的核心创新</h2><figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1;  <span class="comment">// s1 的所有权转移给 s2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// println!(&quot;&#123;&#125;&quot;, s1); // ❌ 编译错误！s1 已失效</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s2);    <span class="comment">// ✅ 正常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="三条核心规则："><a href="#三条核心规则：" class="headerlink" title="三条核心规则："></a>三条核心规则：</h3><ol>
-<li>Rust 中的每个值都有一个<strong>所有者</strong></li>
-<li>同一时间只能有<strong>一个所有者</strong></li>
-<li>当所有者离开作用域，值会被<strong>自动释放</strong></li>
-</ol>
-<h2 id="⚡-零成本抽象"><a href="#⚡-零成本抽象" class="headerlink" title="⚡ 零成本抽象"></a>⚡ 零成本抽象</h2><p>Rust 的抽象不会带来运行时开销：</p>
-<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 迭代器链在编译时会被优化为简单的循环</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">sum</span>: <span class="type">i32</span> = (<span class="number">0</span>..<span class="number">1000</span>)</span><br><span class="line">    .<span class="title function_ invoke__">filter</span>(|x| x % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    .<span class="title function_ invoke__">map</span>(|x| x * x)</span><br><span class="line">    .<span class="title function_ invoke__">sum</span>();</span><br></pre></td></tr></table></figure>
-
-<p>编译器生成的机器码与手写的 C 循环完全等价。</p>
-<h2 id="🔧-实际应用场景"><a href="#🔧-实际应用场景" class="headerlink" title="🔧 实际应用场景"></a>🔧 实际应用场景</h2><table>
-<thead>
-<tr>
-<th>领域</th>
-<th>代表项目</th>
-<th>为什么选 Rust</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>操作系统</td>
-<td>Redox OS</td>
-<td>内存安全 + 高性能</td>
-</tr>
-<tr>
-<td>浏览器引擎</td>
-<td>Servo</td>
-<td>并行渲染</td>
-</tr>
-<tr>
-<td>区块链</td>
-<td>Solana, Polkadot</td>
-<td>安全 + 并发</td>
-</tr>
-<tr>
-<td>数据库</td>
-<td>TiKV, SurrealDB</td>
-<td>可靠性</td>
-</tr>
-<tr>
-<td>CLI 工具</td>
-<td>ripgrep, fd, bat</td>
-<td>极致性能</td>
-</tr>
-<tr>
-<td>WebAssembly</td>
-<td>Yew, Leptos</td>
-<td>体积小 + 快</td>
-</tr>
-</tbody></table>
-<h2 id="📊-性能对比"><a href="#📊-性能对比" class="headerlink" title="📊 性能对比"></a>📊 性能对比</h2><p>内部测试（字符串处理 1M 次）：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:         ████████████ 120ms</span><br><span class="line">Rust:      ████████████ 122ms  </span><br><span class="line">Go:        ████████████████ 180ms</span><br><span class="line">Python:    ████████████████████████████████ 380ms</span><br><span class="line">JavaScript:████████████████████████████████████ 420ms</span><br></pre></td></tr></table></figure>
-
-<p>Rust 的性能几乎等同于 C，远超其他高级语言。</p>
-<h2 id="🎓-学习曲线与回报"><a href="#🎓-学习曲线与回报" class="headerlink" title="🎓 学习曲线与回报"></a>🎓 学习曲线与回报</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">难度</span><br><span class="line">  │    ╭─ Rust ─╮</span><br><span class="line">  │   ╱          ╲</span><br><span class="line">  │  ╱            ╲___</span><br><span class="line">  │ ╱    C++         ╲___ Go</span><br><span class="line">  │╱  C                  ╲___ Python</span><br><span class="line">  └────────────────────────────▶ 时间</span><br></pre></td></tr></table></figure>
-
-<p>Rust 的学习曲线确实陡峭，但一旦跨越，你将获得：</p>
-<ul>
-<li>对内存管理的深刻理解</li>
-<li>编译器帮你避免 90% 的 Bug</li>
-<li>写出既安全又高效的代码的能力</li>
-</ul>
-<h2 id="🔮-未来展望"><a href="#🔮-未来展望" class="headerlink" title="🔮 未来展望"></a>🔮 未来展望</h2><p>Rust 正在渗透到从前端（WASM）到内核（Linux Kernel）的每个角落。它不是要取代所有语言，而是在那些对安全性和性能同时有极致要求的场景，提供了前所未有的解决方案。</p>
-<blockquote>
-<p>2022 年 Linux 内核正式接纳 Rust，这是对这个”十年来最受欢迎的编程语言”最有力的背书。</p>
-</blockquote>
-<p>开始你的 Rust 之旅吧——它可能很难，但绝对值得。</p>
-]]></content>
-      <categories>
-        <category>技术思考</category>
-      </categories>
-      <tags>
-        <tag>Rust</tag>
-        <tag>系统编程</tag>
-        <tag>性能</tag>
-        <tag>内存安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用 Docker 构建完美开发环境</title>
     <url>/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h2 id="告别”在我电脑上能跑”"><a href="#告别”在我电脑上能跑”" class="headerlink" title="告别”在我电脑上能跑”"></a>告别”在我电脑上能跑”</h2><p>每个开发者都听过这句话。Docker 从根本上解决了环境一致性问题——将应用及其依赖打包到一个<strong>容器</strong>中，实现”构建一次，到处运行”。</p>
@@ -154,70 +72,76 @@
       </tags>
   </entry>
   <entry>
-    <title>探索 AI Agent：构建你的第一个智能体</title>
-    <url>/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</url>
-    <content><![CDATA[<h2 id="什么是-AI-Agent？"><a href="#什么是-AI-Agent？" class="headerlink" title="什么是 AI Agent？"></a>什么是 AI Agent？</h2><p>AI Agent（智能体）是能够自主感知环境、做出决策并执行动作的 AI 系统。与传统的 LLM 聊天不同，Agent 可以：</p>
-<ul>
-<li>🔍 <strong>使用工具</strong> — 搜索网络、查询数据库、调用 API</li>
-<li>🧠 <strong>规划推理</strong> — 分解任务、制定步骤、自我修正</li>
-<li>🔄 <strong>记忆循环</strong> — 保留上下文、从交互中学习</li>
-</ul>
-<h2 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────┐     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">│   用户输入   │ ──▶ │  LLM 推理引擎 │ ──▶ │  工具调用器  │</span><br><span class="line">└─────────────┘     └──────────────┘     └─────────────┘</span><br><span class="line">                            │                      │</span><br><span class="line">                            ▼                      ▼</span><br><span class="line">                     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">                     │   记忆存储    │ ◀── │  结果整合器  │</span><br><span class="line">                     └──────────────┘     └─────────────┘</span><br></pre></td></tr></table></figure>
+    <title>用 GitHub Actions 自动化博客构建与部署</title>
+    <url>/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<h2 id="为什么要自动化？"><a href="#为什么要自动化？" class="headerlink" title="为什么要自动化？"></a>为什么要自动化？</h2><p>之前我更新博客需要手动执行两条命令：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">npx hexo generate; npx hexo deploy</span><br></pre></td></tr></table></figure>
 
-<h2 id="快速上手：构建搜索-Agent"><a href="#快速上手：构建搜索-Agent" class="headerlink" title="快速上手：构建搜索 Agent"></a>快速上手：构建搜索 Agent</h2><p>使用 LangChain 构建一个能搜索网络的智能体：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> initialize_agent, Tool</span><br><span class="line"><span class="keyword">from</span> langchain.llms <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.tools <span class="keyword">import</span> DuckDuckGoSearchRun</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 LLM</span></span><br><span class="line">llm = OpenAI(temperature=<span class="number">0.7</span>, model=<span class="string">&quot;gpt-4&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义工具</span></span><br><span class="line">search = DuckDuckGoSearchRun()</span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;Search&quot;</span>,</span><br><span class="line">        func=search.run,</span><br><span class="line">        description=<span class="string">&quot;搜索互联网获取最新信息&quot;</span></span><br><span class="line">    )</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 Agent</span></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools, llm,</span><br><span class="line">    agent=<span class="string">&quot;zero-shot-react-description&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">agent.run(<span class="string">&quot;2026年最热门的编程语言是什么？&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>每次写完文章都要重复这几步，偶尔还会忘记。于是我用 GitHub Actions 把这一切自动化了——<strong>推送源码，自动构建部署</strong>。</p>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push → GitHub Actions 自动运行 → 博客自动更新</span><br></pre></td></tr></table></figure>
 
-<h2 id="Agent-的思维链"><a href="#Agent-的思维链" class="headerlink" title="Agent 的思维链"></a>Agent 的思维链</h2><p>当你向 Agent 提问时，它会经历这样的过程：</p>
-<ol>
-<li><strong>Thought</strong>: “我需要搜索 2026 年编程语言排行”</li>
-<li><strong>Action</strong>: 调用 Search 工具</li>
-<li><strong>Observation</strong>: 获取搜索结果</li>
-<li><strong>Thought</strong>: “根据结果，我可以给出答案了”</li>
-<li><strong>Final Answer</strong>: 整理后的回答</li>
-</ol>
-<h2 id="实用场景"><a href="#实用场景" class="headerlink" title="实用场景"></a>实用场景</h2><table>
+<p>不需要手动 hexo generate，不需要 hexo deploy，甚至不需要打开终端。手机上改个 .md 然后 push，博客就更新了。</p>
+<h2 id="工作流设计"><a href="#工作流设计" class="headerlink" title="工作流设计"></a>工作流设计</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌────────────────────────────────────┐</span><br><span class="line">│         GitHub Actions CI          │</span><br><span class="line">│                                    │</span><br><span class="line">│  ① Checkout my-blog-source         │</span><br><span class="line">│       ↓                            │</span><br><span class="line">│  ② Setup Node.js 20                │</span><br><span class="line">│       ↓                            │</span><br><span class="line">│  ③ npm ci                          │</span><br><span class="line">│       ↓                            │</span><br><span class="line">│  ④ Configure SSH Key               │</span><br><span class="line">│       ↓                            │</span><br><span class="line">│  ⑤ hexo generate + hexo deploy     │</span><br><span class="line">│       ↓                            │</span><br><span class="line">│  ✅ 部署到 yucu666.github.io       │</span><br><span class="line">└────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<h2 id="工作流文件"><a href="#工作流文件" class="headerlink" title="工作流文件"></a>工作流文件</h2><p>在项目根目录创建 <code>.github/workflows/deploy.yml</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Build</span> <span class="string">&amp;</span> <span class="string">Deploy</span> <span class="string">Blog</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">main</span>]</span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">&#x27;0 8 * * *&#x27;</span>   <span class="comment"># 每天北京时间 16:00</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span>       <span class="comment"># 支持手动触发</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;20&#x27;</span></span><br><span class="line">          <span class="attr">cache:</span> <span class="string">&#x27;npm&#x27;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">SSH</span> <span class="string">for</span> <span class="string">deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">webfactory/ssh-agent@v0.9.0</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">ssh-private-key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">&amp;</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git config --global user.name &quot;github-actions[bot]&quot;</span></span><br><span class="line"><span class="string">          git config --global user.email &quot;github-actions[bot]@users.noreply.github.com&quot;</span></span><br><span class="line"><span class="string">          npx hexo clean</span></span><br><span class="line"><span class="string">          npx hexo generate</span></span><br><span class="line"><span class="string">          npx hexo deploy</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三个触发条件"><a href="#三个触发条件" class="headerlink" title="三个触发条件"></a>三个触发条件</h2><table>
 <thead>
 <tr>
-<th>场景</th>
-<th>工具组合</th>
-<th>效果</th>
+<th>触发方式</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>代码助手</td>
-<td>文件读写 + Shell + 代码执行</td>
-<td>自动修复 Bug</td>
+<td><code>push</code></td>
+<td>推送 main 分支时自动运行</td>
 </tr>
 <tr>
-<td>数据分析</td>
-<td>SQL + Python + 绘图库</td>
-<td>自动生成报告</td>
+<td><code>schedule</code></td>
+<td>每天定时运行（cron 表达式）</td>
 </tr>
 <tr>
-<td>客服机器人</td>
-<td>知识库 + CRM + 工单系统</td>
-<td>7×24 智能服务</td>
+<td><code>workflow_dispatch</code></td>
+<td>手动在 GitHub 页面点按钮运行</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p><strong>提示</strong>: Agent 的能力上限取决于你给它提供的工具。精心设计工具接口，是构建强大 Agent 的关键。</p>
-</blockquote>
-<h2 id="进阶方向"><a href="#进阶方向" class="headerlink" title="进阶方向"></a>进阶方向</h2><ol>
-<li><strong>多 Agent 协作</strong> — 多个专门 Agent 分工合作</li>
-<li><strong>RAG + Agent</strong> — 结合检索增强生成</li>
-<li><strong>Human-in-the-loop</strong> — 关键决策由人确认</li>
+<h3 id="Cron-时间换算"><a href="#Cron-时间换算" class="headerlink" title="Cron 时间换算"></a>Cron 时间换算</h3><p><code>0 8 * * *</code> 是 UTC 时间 8:00，对应北京时间 16:00。</p>
+<p>其他常用时间段：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">cron:</span> <span class="string">&#x27;0 0 * * *&#x27;</span>     <span class="comment"># 每天北京时间 08:00</span></span><br><span class="line"><span class="attr">cron:</span> <span class="string">&#x27;0 12 * * *&#x27;</span>    <span class="comment"># 每天北京时间 20:00</span></span><br><span class="line"><span class="attr">cron:</span> <span class="string">&#x27;0 8 * * 1&#x27;</span>     <span class="comment"># 每周一北京时间 16:00</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="SSH-密钥配置"><a href="#SSH-密钥配置" class="headerlink" title="SSH 密钥配置"></a>SSH 密钥配置</h2><p>因为 Hexo deploy 用 SSH 推送到 GitHub Pages，GitHub Actions 需要能访问目标仓库。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>查看本地已有的 SSH 私钥</li>
+<li>在 GitHub 的 <code>my-blog-source</code> 仓库 Settings → Secrets → Actions</li>
+<li>新建 <code>DEPLOY_KEY</code>，粘贴私钥内容</li>
+<li>工作流中通过 <code>$&#123;&#123; secrets.DEPLOY_KEY &#125;&#125;</code> 读取</li>
 </ol>
-<p>AI Agent 正在重新定义人机交互的方式。现在就开始构建你的第一个智能体吧！</p>
+<h2 id="完整发布流程"><a href="#完整发布流程" class="headerlink" title="完整发布流程"></a>完整发布流程</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">写文章 .md</span><br><span class="line">   │</span><br><span class="line">   ├─ git add .</span><br><span class="line">   ├─ git commit -m &quot;新文章&quot;</span><br><span class="line">   └─ git push</span><br><span class="line">          │</span><br><span class="line">          ▼</span><br><span class="line">   GitHub Actions 自动运行</span><br><span class="line">          │</span><br><span class="line">          ├─ npm ci</span><br><span class="line">          ├─ hexo generate</span><br><span class="line">          └─ hexo deploy</span><br><span class="line">                 │</span><br><span class="line">                 ▼</span><br><span class="line">          ✅ 博客已更新</span><br></pre></td></tr></table></figure>
+
+<p>一次 push，全自动完成。</p>
+<h2 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h2><h3 id="1-缓存依赖"><a href="#1-缓存依赖" class="headerlink" title="1. 缓存依赖"></a>1. 缓存依赖</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">node_modules</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">actions/cache@v4</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">    <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-node-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-失败通知"><a href="#2-失败通知" class="headerlink" title="2. 失败通知"></a>2. 失败通知</h3><p>可以在工作流末尾添加 Telegram 或邮件通知：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Notify</span> <span class="string">on</span> <span class="string">failure</span></span><br><span class="line">  <span class="attr">if:</span> <span class="string">failure()</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">appleboy/telegram-action@master</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">to:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.TELEGRAM_TO</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.TELEGRAM_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">&quot;博客部署失败，请检查！&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-预览链接"><a href="#3-预览链接" class="headerlink" title="3. 预览链接"></a>3. 预览链接</h3><p>使用 <code>peaceiris/actions-gh-pages</code> 替代 <code>hexo deploy</code> 可以直接在 Action 日志中看到部署预览。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>GitHub Actions 让博客维护变得轻松。现在我的工作流是：</p>
+<blockquote>
+<p>打开编辑器 → 写文章 → git push → 完事</p>
+</blockquote>
+<p>不用关心构建、部署、缓存、环境——全部交给 CI。</p>
+<p>如果你也有个人博客，强烈推荐加上这套自动化流程。一次配置，永久受益。</p>
 ]]></content>
       <categories>
         <category>技术教程</category>
       </categories>
       <tags>
-        <tag>AI</tag>
-        <tag>Agent</tag>
-        <tag>LLM</tag>
-        <tag>LangChain</tag>
-        <tag>Python</tag>
+        <tag>DevOps</tag>
+        <tag>GitHub Actions</tag>
+        <tag>CI/CD</tag>
+        <tag>Hexo</tag>
+        <tag>自动化</tag>
       </tags>
   </entry>
   <entry>
@@ -310,6 +234,155 @@
         <tag>Hexo</tag>
         <tag>博客</tag>
         <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为什么 Rust 正在改变系统编程的未来</title>
+    <url>/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/</url>
+    <content><![CDATA[<h2 id="编程语言的进化方向"><a href="#编程语言的进化方向" class="headerlink" title="编程语言的进化方向"></a>编程语言的进化方向</h2><p>从 C 到 C++，从 Java 到 Go，每一代系统编程语言都在尝试解决前一代的痛点。而 Rust 的出现，真正改变了一个根本性难题——<strong>如何在保证内存安全的同时不牺牲性能</strong>。</p>
+<h2 id="🦀-所有权系统：Rust-的核心创新"><a href="#🦀-所有权系统：Rust-的核心创新" class="headerlink" title="🦀 所有权系统：Rust 的核心创新"></a>🦀 所有权系统：Rust 的核心创新</h2><figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1;  <span class="comment">// s1 的所有权转移给 s2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// println!(&quot;&#123;&#125;&quot;, s1); // ❌ 编译错误！s1 已失效</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s2);    <span class="comment">// ✅ 正常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三条核心规则："><a href="#三条核心规则：" class="headerlink" title="三条核心规则："></a>三条核心规则：</h3><ol>
+<li>Rust 中的每个值都有一个<strong>所有者</strong></li>
+<li>同一时间只能有<strong>一个所有者</strong></li>
+<li>当所有者离开作用域，值会被<strong>自动释放</strong></li>
+</ol>
+<h2 id="⚡-零成本抽象"><a href="#⚡-零成本抽象" class="headerlink" title="⚡ 零成本抽象"></a>⚡ 零成本抽象</h2><p>Rust 的抽象不会带来运行时开销：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 迭代器链在编译时会被优化为简单的循环</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">sum</span>: <span class="type">i32</span> = (<span class="number">0</span>..<span class="number">1000</span>)</span><br><span class="line">    .<span class="title function_ invoke__">filter</span>(|x| x % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    .<span class="title function_ invoke__">map</span>(|x| x * x)</span><br><span class="line">    .<span class="title function_ invoke__">sum</span>();</span><br></pre></td></tr></table></figure>
+
+<p>编译器生成的机器码与手写的 C 循环完全等价。</p>
+<h2 id="🔧-实际应用场景"><a href="#🔧-实际应用场景" class="headerlink" title="🔧 实际应用场景"></a>🔧 实际应用场景</h2><table>
+<thead>
+<tr>
+<th>领域</th>
+<th>代表项目</th>
+<th>为什么选 Rust</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统</td>
+<td>Redox OS</td>
+<td>内存安全 + 高性能</td>
+</tr>
+<tr>
+<td>浏览器引擎</td>
+<td>Servo</td>
+<td>并行渲染</td>
+</tr>
+<tr>
+<td>区块链</td>
+<td>Solana, Polkadot</td>
+<td>安全 + 并发</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>TiKV, SurrealDB</td>
+<td>可靠性</td>
+</tr>
+<tr>
+<td>CLI 工具</td>
+<td>ripgrep, fd, bat</td>
+<td>极致性能</td>
+</tr>
+<tr>
+<td>WebAssembly</td>
+<td>Yew, Leptos</td>
+<td>体积小 + 快</td>
+</tr>
+</tbody></table>
+<h2 id="📊-性能对比"><a href="#📊-性能对比" class="headerlink" title="📊 性能对比"></a>📊 性能对比</h2><p>内部测试（字符串处理 1M 次）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:         ████████████ 120ms</span><br><span class="line">Rust:      ████████████ 122ms  </span><br><span class="line">Go:        ████████████████ 180ms</span><br><span class="line">Python:    ████████████████████████████████ 380ms</span><br><span class="line">JavaScript:████████████████████████████████████ 420ms</span><br></pre></td></tr></table></figure>
+
+<p>Rust 的性能几乎等同于 C，远超其他高级语言。</p>
+<h2 id="🎓-学习曲线与回报"><a href="#🎓-学习曲线与回报" class="headerlink" title="🎓 学习曲线与回报"></a>🎓 学习曲线与回报</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">难度</span><br><span class="line">  │    ╭─ Rust ─╮</span><br><span class="line">  │   ╱          ╲</span><br><span class="line">  │  ╱            ╲___</span><br><span class="line">  │ ╱    C++         ╲___ Go</span><br><span class="line">  │╱  C                  ╲___ Python</span><br><span class="line">  └────────────────────────────▶ 时间</span><br></pre></td></tr></table></figure>
+
+<p>Rust 的学习曲线确实陡峭，但一旦跨越，你将获得：</p>
+<ul>
+<li>对内存管理的深刻理解</li>
+<li>编译器帮你避免 90% 的 Bug</li>
+<li>写出既安全又高效的代码的能力</li>
+</ul>
+<h2 id="🔮-未来展望"><a href="#🔮-未来展望" class="headerlink" title="🔮 未来展望"></a>🔮 未来展望</h2><p>Rust 正在渗透到从前端（WASM）到内核（Linux Kernel）的每个角落。它不是要取代所有语言，而是在那些对安全性和性能同时有极致要求的场景，提供了前所未有的解决方案。</p>
+<blockquote>
+<p>2022 年 Linux 内核正式接纳 Rust，这是对这个”十年来最受欢迎的编程语言”最有力的背书。</p>
+</blockquote>
+<p>开始你的 Rust 之旅吧——它可能很难，但绝对值得。</p>
+]]></content>
+      <categories>
+        <category>技术思考</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>系统编程</tag>
+        <tag>性能</tag>
+        <tag>内存安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>探索 AI Agent：构建你的第一个智能体</title>
+    <url>/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</url>
+    <content><![CDATA[<h2 id="什么是-AI-Agent？"><a href="#什么是-AI-Agent？" class="headerlink" title="什么是 AI Agent？"></a>什么是 AI Agent？</h2><p>AI Agent（智能体）是能够自主感知环境、做出决策并执行动作的 AI 系统。与传统的 LLM 聊天不同，Agent 可以：</p>
+<ul>
+<li>🔍 <strong>使用工具</strong> — 搜索网络、查询数据库、调用 API</li>
+<li>🧠 <strong>规划推理</strong> — 分解任务、制定步骤、自我修正</li>
+<li>🔄 <strong>记忆循环</strong> — 保留上下文、从交互中学习</li>
+</ul>
+<h2 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────┐     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">│   用户输入   │ ──▶ │  LLM 推理引擎 │ ──▶ │  工具调用器  │</span><br><span class="line">└─────────────┘     └──────────────┘     └─────────────┘</span><br><span class="line">                            │                      │</span><br><span class="line">                            ▼                      ▼</span><br><span class="line">                     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">                     │   记忆存储    │ ◀── │  结果整合器  │</span><br><span class="line">                     └──────────────┘     └─────────────┘</span><br></pre></td></tr></table></figure>
+
+<h2 id="快速上手：构建搜索-Agent"><a href="#快速上手：构建搜索-Agent" class="headerlink" title="快速上手：构建搜索 Agent"></a>快速上手：构建搜索 Agent</h2><p>使用 LangChain 构建一个能搜索网络的智能体：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> initialize_agent, Tool</span><br><span class="line"><span class="keyword">from</span> langchain.llms <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.tools <span class="keyword">import</span> DuckDuckGoSearchRun</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 LLM</span></span><br><span class="line">llm = OpenAI(temperature=<span class="number">0.7</span>, model=<span class="string">&quot;gpt-4&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义工具</span></span><br><span class="line">search = DuckDuckGoSearchRun()</span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;Search&quot;</span>,</span><br><span class="line">        func=search.run,</span><br><span class="line">        description=<span class="string">&quot;搜索互联网获取最新信息&quot;</span></span><br><span class="line">    )</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 Agent</span></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools, llm,</span><br><span class="line">    agent=<span class="string">&quot;zero-shot-react-description&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">agent.run(<span class="string">&quot;2026年最热门的编程语言是什么？&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Agent-的思维链"><a href="#Agent-的思维链" class="headerlink" title="Agent 的思维链"></a>Agent 的思维链</h2><p>当你向 Agent 提问时，它会经历这样的过程：</p>
+<ol>
+<li><strong>Thought</strong>: “我需要搜索 2026 年编程语言排行”</li>
+<li><strong>Action</strong>: 调用 Search 工具</li>
+<li><strong>Observation</strong>: 获取搜索结果</li>
+<li><strong>Thought</strong>: “根据结果，我可以给出答案了”</li>
+<li><strong>Final Answer</strong>: 整理后的回答</li>
+</ol>
+<h2 id="实用场景"><a href="#实用场景" class="headerlink" title="实用场景"></a>实用场景</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>工具组合</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码助手</td>
+<td>文件读写 + Shell + 代码执行</td>
+<td>自动修复 Bug</td>
+</tr>
+<tr>
+<td>数据分析</td>
+<td>SQL + Python + 绘图库</td>
+<td>自动生成报告</td>
+</tr>
+<tr>
+<td>客服机器人</td>
+<td>知识库 + CRM + 工单系统</td>
+<td>7×24 智能服务</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>提示</strong>: Agent 的能力上限取决于你给它提供的工具。精心设计工具接口，是构建强大 Agent 的关键。</p>
+</blockquote>
+<h2 id="进阶方向"><a href="#进阶方向" class="headerlink" title="进阶方向"></a>进阶方向</h2><ol>
+<li><strong>多 Agent 协作</strong> — 多个专门 Agent 分工合作</li>
+<li><strong>RAG + Agent</strong> — 结合检索增强生成</li>
+<li><strong>Human-in-the-loop</strong> — 关键决策由人确认</li>
+</ol>
+<p>AI Agent 正在重新定义人机交互的方式。现在就开始构建你的第一个智能体吧！</p>
+]]></content>
+      <categories>
+        <category>技术教程</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+        <tag>Agent</tag>
+        <tag>LLM</tag>
+        <tag>LangChain</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
