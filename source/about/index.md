@@ -34,7 +34,7 @@ yucu — Full Stack Developer / Digital Explorer
 ## 📡 联系与链接
 
 - **GitHub**: [github.com/yucu666](https://github.com/yucu666)
-- **Email**: yucu@example.com
+- **Email**: yucu0704@gmail.com
 - **RSS**: [/atom.xml](/atom.xml)
 
 ## 💻 关于本站
