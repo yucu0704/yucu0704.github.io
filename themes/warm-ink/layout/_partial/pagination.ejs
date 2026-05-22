@@ -1,0 +1,11 @@
+<% if (page.total > 1) { %>
+<nav class="pagination">
+  <% if (page.prev) { %><a href="<%= url_for(page.prev_link) %>" class="page-btn">← 上一页</a><% } else { %><span class="page-btn disabled">← 上一页</span><% } %>
+  <div class="page-numbers">
+    <% for (var i = 1; i <= page.total; i++) { %>
+      <% if (i === page.current) { %><span class="page-num current"><%= i %></span><% } else { %><a href="<%= url_for(i === 1 ? config.pagination_dir + '/' : config.pagination_dir + '/' + i + '/') %>" class="page-num"><%= i %></a><% } %>
+    <% } %>
+  </div>
+  <% if (page.next) { %><a href="<%= url_for(page.next_link) %>" class="page-btn">下一页 →</a><% } else { %><span class="page-btn disabled">下一页 →</span><% } %>
+</nav>
+<% } %>

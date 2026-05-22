@@ -1,0 +1,23 @@
+<article class="post-card">
+  <% if (post.categories && post.categories.length) { %>
+    <% post.categories.each(function(cat) { %>
+      <a href="<%= url_for(cat.path) %>" class="post-card-category"><%= cat.name %></a>
+    <% }) %>
+  <% } %>
+  <h2 class="post-card-title">
+    <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+  </h2>
+  <% if (post.excerpt) { %>
+    <div class="post-card-excerpt"><%- post.excerpt %></div>
+  <% } %>
+  <div class="post-card-meta">
+    <div class="post-card-tags">
+      <% if (post.tags && post.tags.length) { %>
+        <% post.tags.each(function(tag) { %>
+          <a href="<%= url_for(tag.path) %>">#<%= tag.name %></a>
+        <% }) %>
+      <% } %>
+    </div>
+    <time class="post-card-date"><%= date(post.date, 'YYYY-MM-DD') %></time>
+  </div>
+</article>

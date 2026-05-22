@@ -1,0 +1,9 @@
+<%- partial('_partial/head') %>
+<div class="page-hero"><h1 class="page-hero-title">分类</h1></div>
+<div class="page-layout">
+  <div class="category-grid">
+    <% site.categories.each(function(cat) { %><a href="<%= url_for(cat.path) %>" class="category-card"><span class="cat-icon"><%= cat.name.charAt(0) %></span><div class="cat-info"><h3><%= cat.name %></h3><span><%= cat.posts.length %> 篇</span></div></a><% }) %>
+  </div>
+  <%- partial('_partial/sidebar') %>
+</div>
+<%- partial('_partial/footer') %>

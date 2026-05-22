@@ -1,0 +1,31 @@
+<%- partial('_partial/head') %>
+<div class="post-page">
+  <div class="post-hero">
+    <div class="post-meta-top">
+      <% if (post.categories && post.categories.length) { %>
+        <% post.categories.each(function(cat) { %>
+          <a href="<%= url_for(cat.path) %>" class="post-category"><%= cat.name %></a>
+        <% }) %>
+      <% } %>
+      <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+    </div>
+    <h1 class="post-title"><%= post.title %></h1>
+    <% if (post.tags && post.tags.length) { %>
+    <div class="post-tags-hero">
+      <% post.tags.each(function(tag) { %>
+        <a href="<%= url_for(tag.path) %>" class="hero-tag">#<%= tag.name %></a>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+  <article class="post-content"><%- post.content %></article>
+  <div class="post-nav-bottom">
+    <% if (post.prev) { %>
+      <a href="<%= url_for(post.prev.path) %>" class="post-nav-link prev"><span class="nav-label">← 上一篇</span><span class="nav-title"><%= post.prev.title %></span></a>
+    <% } %>
+    <% if (post.next) { %>
+      <a href="<%= url_for(post.next.path) %>" class="post-nav-link next"><span class="nav-label">下一篇 →</span><span class="nav-title"><%= post.next.title %></span></a>
+    <% } %>
+  </div>
+</div>
+<%- partial('_partial/footer') %>

@@ -1,0 +1,27 @@
+# Warm Ink Theme Configuration
+# 暖墨 — 文艺手帐风格
+
+avatar: /images/avatar.svg
+favicon: /images/favicon.svg
+
+menu:
+  home: / || 首页
+  archives: /archives || 归档
+  categories: /categories || 分类
+  tags: /tags || 标签
+  about: /about || 关于
+
+social:
+  github: https://github.com/yucu666
+  email: mailto:yucu@example.com
+
+index:
+  posts_per_page: 8
+
+sidebar:
+  position: right
+
+footer:
+  since: 2025
+  copyright: true
+  powered: true

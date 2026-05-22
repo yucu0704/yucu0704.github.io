@@ -1,0 +1,72 @@
+<%- partial('_partial/head') %>
+
+<% if (is_home()) { %>
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title"><%= config.title %></h1>
+    <p class="hero-subtitle"><%= config.description %></p>
+    <div class="hero-actions">
+      <a href="<%= url_for('/archives') %>" class="btn-primary">阅读文章</a>
+      <a href="<%= url_for('/about') %>" class="btn-outline">关于我</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <svg class="hero-illustration" viewBox="0 0 300 300">
+      <defs>
+        <linearGradient id="ink1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#d4784f" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#c44536" stop-opacity="0.2"/>
+        </linearGradient>
+      </defs>
+      <circle cx="150" cy="150" r="120" fill="none" stroke="url(#ink1)" stroke-width="1.5"/>
+      <circle cx="150" cy="150" r="80" fill="none" stroke="#d4a76a" stroke-width="0.8" stroke-dasharray="3 6"/>
+      <text x="150" y="120" text-anchor="middle" font-family="Liu Jian Mao Cao, cursive" font-size="64" fill="#c44536" opacity="0.7">暖</text>
+      <text x="150" y="170" text-anchor="middle" font-family="Liu Jian Mao Cao, cursive" font-size="36" fill="#d4a76a" opacity="0.5">墨</text>
+      <g opacity="0.3">
+        <circle cx="50" cy="80" r="4" fill="#d4784f"/><circle cx="240" cy="100" r="3" fill="#e8b86d"/>
+        <circle cx="220" cy="220" r="5" fill="#c44536"/><circle cx="70" cy="210" r="3" fill="#d4784f"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<section class="posts-section">
+  <h2 class="section-title">📝 最近文章</h2>
+  <div class="posts-grid">
+    <% page.posts.each(function(post) { %><%- partial('_partial/post-card', { post: post }) %><% }) %>
+  </div>
+  <%- partial('_partial/pagination') %>
+</section>
+
+<% } else if (is_post()) { %>
+<%- partial('_partial/post-detail', { post: page }) %>
+
+<% } else if (is_archive()) { %>
+<div class="page-hero"><h1 class="page-hero-title">文章归档</h1><p class="page-hero-desc">共 <%= site.posts.length %> 篇</p></div>
+<div class="archive-timeline">
+  <% var lastYear = 0; page.posts.each(function(post) { var thisYear = date(post.date, 'YYYY'); if (thisYear !== lastYear) { lastYear = thisYear; %>
+    <div class="timeline-year"><h2><%= thisYear %></h2></div>
+  <% } %>
+    <div class="timeline-item"><time class="timeline-date"><%= date(post.date, 'MM-DD') %></time><a href="<%= url_for(post.path) %>" class="timeline-title"><%= post.title %></a></div>
+  <% }) %>
+</div>
+<%- partial('_partial/pagination') %>
+
+<% } else if (is_category()) { %>
+<div class="page-hero"><h1 class="page-hero-title">分类</h1></div>
+<div class="category-grid">
+  <% site.categories.each(function(cat) { %>
+    <a href="<%= url_for(cat.path) %>" class="category-card"><span class="cat-icon"><%= cat.name.charAt(0) %></span><div class="cat-info"><h3><%= cat.name %></h3><span><%= cat.posts.length %> 篇</span></div></a>
+  <% }) %>
+</div>
+
+<% } else if (is_tag()) { %>
+<div class="page-hero"><h1 class="page-hero-title">标签</h1></div>
+<div class="tag-cloud-page">
+  <% site.tags.each(function(tag) { %>
+    <a href="<%= url_for(tag.path) %>" class="tag-bubble"><span class="tag-hash">#</span><%= tag.name %><sup><%= tag.posts.length %></sup></a>
+  <% }) %>
+</div>
+<% } %>
+
+<%- partial('_partial/footer') %>

@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: NEON VAULT
-subtitle: 代码是霓虹，思想即宇宙
-description: 一个热爱技术的开发者，探索代码、设计与未来的无限可能
-keywords: 技术, 编程, 前端, 后端, AI, 开源, 博客
+title: 暖墨小栈
+subtitle: 记录技术与生活的小角落，温润如纸，淡雅如墨
+description: 一个热爱技术的开发者，用文字记录编程心得与生活感悟
+keywords: 技术, 编程, 生活, 随笔, 博客
 author: yucu
 language: zh-CN
 timezone: Asia/Shanghai
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: neon-vault
+theme: warm-ink
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

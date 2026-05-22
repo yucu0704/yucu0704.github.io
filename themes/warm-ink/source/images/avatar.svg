@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="av-bg" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#fef8f0"/>
+      <stop offset="100%" stop-color="#f5e8d8"/>
+    </radialGradient>
+    <linearGradient id="av-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4784f"/>
+      <stop offset="100%" stop-color="#c44536"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="50" fill="url(#av-bg)"/>
+  <circle cx="100" cy="100" r="82" fill="none" stroke="url(#av-ring)" stroke-width="2.5"/>
+  <circle cx="100" cy="100" r="68" fill="none" stroke="#d4a76a" stroke-width="1" stroke-dasharray="3 5" opacity="0.4"/>
+  <!-- Calligraphy "暖" -->
+  <text x="100" y="140" text-anchor="middle" font-family="Liu Jian Mao Cao, serif" font-size="90" fill="#c44536" opacity="0.85">暖</text>
+  <!-- Decorative dots -->
+  <circle cx="38" cy="55" r="2.5" fill="#d4784f" opacity="0.5"/>
+  <circle cx="162" cy="50" r="2" fill="#e8b86d" opacity="0.6"/>
+  <circle cx="158" cy="155" r="2" fill="#c44536" opacity="0.4"/>
+  <circle cx="42" cy="150" r="1.8" fill="#d4a76a" opacity="0.5"/>
+</svg>

@@ -1,0 +1,43 @@
+<aside class="sidebar">
+  <div class="sidebar-card author-card">
+    <div class="avatar-wrapper">
+      <img src="<%= url_for(theme.avatar || '/images/avatar.svg') %>" alt="<%= config.author %>" class="avatar">
+    </div>
+    <h3 class="author-name"><%= config.author %></h3>
+    <p class="author-bio"><%= config.subtitle %></p>
+    <div class="author-stats">
+      <div class="stat-item"><span class="stat-num"><%= site.posts.length %></span><span class="stat-label">文章</span></div>
+      <div class="stat-item"><span class="stat-num"><%= site.categories.length %></span><span class="stat-label">分类</span></div>
+      <div class="stat-item"><span class="stat-num"><%= site.tags.length %></span><span class="stat-label">标签</span></div>
+    </div>
+    <div class="social-links">
+      <% if (theme.social) { %>
+        <% for (var key in theme.social) { %>
+          <a href="<%= theme.social[key] %>" target="_blank" rel="noopener" class="social-link"><%= key %></a>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+
+  <% if (site.categories && site.categories.length) { %>
+  <div class="sidebar-card">
+    <h4 class="card-title">📂 分类</h4>
+    <ul class="category-list">
+      <% site.categories.each(function(cat) { %>
+        <li><a href="<%= url_for(cat.path) %>"><span class="cat-name"><%= cat.name %></span><span class="cat-count"><%= cat.posts.length %></span></a></li>
+      <% }) %>
+    </ul>
+  </div>
+  <% } %>
+
+  <% if (site.tags && site.tags.length) { %>
+  <div class="sidebar-card">
+    <h4 class="card-title">🏷 标签</h4>
+    <div class="tag-cloud">
+      <% site.tags.each(function(tag) { %>
+        <a href="<%= url_for(tag.path) %>" class="tag-item"><%= tag.name %></a>
+      <% }) %>
+    </div>
+  </div>
+  <% } %>
+</aside>

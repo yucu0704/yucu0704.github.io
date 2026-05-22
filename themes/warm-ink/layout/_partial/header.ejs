@@ -1,0 +1,33 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="<%= url_for('/') %>" class="site-logo">
+      <svg class="logo-svg" viewBox="0 0 60 60" width="42" height="42">
+        <defs>
+          <linearGradient id="logo-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4784f"/>
+            <stop offset="100%" stop-color="#c44536"/>
+          </linearGradient>
+        </defs>
+        <circle cx="30" cy="30" r="26" fill="none" stroke="url(#logo-warm)" stroke-width="2.5"/>
+        <text x="30" y="38" text-anchor="middle" fill="url(#logo-warm)" font-family="ZCOOL XiaoWei, serif" font-size="22">暖</text>
+      </svg>
+      <span class="logo-text"><%= config.title %></span>
+    </a>
+
+    <nav class="site-nav">
+      <% for (var i in theme.menu) { %>
+        <a href="<%= url_for(theme.menu[i].split(' || ')[0]) %>" class="nav-link"><%= theme.menu[i].split(' || ')[1] %></a>
+      <% } %>
+    </nav>
+
+    <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <% for (var i in theme.menu) { %>
+      <a href="<%= url_for(theme.menu[i].split(' || ')[0]) %>"><%= theme.menu[i].split(' || ')[1] %></a>
+    <% } %>
+  </div>
+  <div class="header-ink"></div>
+</header>

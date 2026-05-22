@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-CN' %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><% if (is_home()) { %><%= config.title %><% } else { %><%= page.title %> | <%= config.title %><% } %></title>
+  <meta name="description" content="<%= config.description %>">
+  <meta name="keywords" content="<%= config.keywords %>">
+  <meta name="author" content="<%= config.author %>">
+  <meta property="og:title" content="<%= page.title || config.title %>">
+  <meta property="og:description" content="<%= config.description %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= config.url %>">
+  <meta property="og:site_name" content="<%= config.title %>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=ZCOOL+XiaoWei&family=Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="<%= url_for('/css/style.css') %>">
+  <link rel="icon" type="image/svg+xml" href="<%= url_for('/images/favicon.svg') %>">
+  <%- partial('_partial/ga') %>
+</head>
+<body>
+  <canvas id="petals-canvas"></canvas>
+  <div class="paper-texture"></div>
+
+  <div class="site-wrapper">
+    <%- partial('_partial/header') %>
+    <main class="main-content">
