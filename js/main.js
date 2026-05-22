@@ -2,14 +2,17 @@
  * WARM INK — Main JavaScript
  * Mobile nav, scroll reveal, smooth interactions
  */
+
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initScrollReveal();
 });
+
 function initMobileNav() {
   const toggle = document.getElementById('mobile-toggle');
   const nav = document.getElementById('mobile-nav');
   if (!toggle || !nav) return;
+
   toggle.addEventListener('click', () => {
     nav.classList.toggle('active');
     const spans = toggle.querySelectorAll('span');
@@ -24,6 +27,7 @@ function initMobileNav() {
     }
   });
 }
+
 function initScrollReveal() {
   const revealElements = document.querySelectorAll('.post-card, .category-card, .timeline-item, .sidebar-card');
   const observer = new IntersectionObserver((entries) => {
@@ -35,6 +39,7 @@ function initScrollReveal() {
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
   revealElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';

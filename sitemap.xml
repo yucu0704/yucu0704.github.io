@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yucu666.github.io/about/index.html</loc>
+    
+    <lastmod>2026-05-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/guestbook/index.html</loc>
+    
+    <lastmod>2026-05-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/friends/index.html</loc>
+    
+    <lastmod>2026-05-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/works/index.html</loc>
+    
+    <lastmod>2026-05-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://yucu666.github.io/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
     
     <lastmod>2026-05-22</lastmod>
@@ -30,15 +66,6 @@
   
   <url>
     <loc>https://yucu666.github.io/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</loc>
-    
-    <lastmod>2026-05-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yucu666.github.io/about/index.html</loc>
     
     <lastmod>2026-05-22</lastmod>
     
@@ -83,21 +110,56 @@
 
   
   <url>
-    <loc>https://yucu666.github.io/tags/Hexo/</loc>
+    <loc>https://yucu666.github.io/tags/Rust/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yucu666.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://yucu666.github.io/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yucu666.github.io/tags/GitHub-Pages/</loc>
+    <loc>https://yucu666.github.io/tags/%E6%80%A7%E8%83%BD/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/tags/%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/tags/Docker/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/tags/DevOps/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yucu666.github.io/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -139,28 +201,21 @@
   </url>
   
   <url>
-    <loc>https://yucu666.github.io/tags/Docker/</loc>
+    <loc>https://yucu666.github.io/tags/Hexo/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yucu666.github.io/tags/DevOps/</loc>
+    <loc>https://yucu666.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yucu666.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yucu666.github.io/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</loc>
+    <loc>https://yucu666.github.io/tags/GitHub-Pages/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -201,45 +256,17 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://yucu666.github.io/tags/Rust/</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yucu666.github.io/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yucu666.github.io/tags/%E6%80%A7%E8%83%BD/</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yucu666.github.io/tags/%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
-    <loc>https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/</loc>
+    <loc>https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</loc>
+    <loc>https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
