@@ -4,120 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>NEON VAULT</title>
-
-  <meta name="description" content="一个热爱技术的开发者，探索代码、设计与未来的无限可能">
-  <meta name="keywords" content="技术, 编程, 前端, 后端, AI, 开源, 博客">
+  <title>暖墨小栈</title>
+  <meta name="description" content="一个热爱技术的开发者，用文字记录编程心得与生活感悟">
+  <meta name="keywords" content="技术, 编程, 生活, 随笔, 博客">
   <meta name="author" content="yucu">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="NEON VAULT">
-  <meta property="og:description" content="一个热爱技术的开发者，探索代码、设计与未来的无限可能">
+  <meta property="og:title" content="暖墨小栈">
+  <meta property="og:description" content="一个热爱技术的开发者，用文字记录编程心得与生活感悟">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yucu666.github.io">
-  <meta property="og:site_name" content="NEON VAULT">
+  <meta property="og:site_name" content="暖墨小栈">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=ZCOOL+XiaoWei&family=Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
 
-  <!-- Theme CSS -->
   <link rel="stylesheet" href="/css/style.css">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
-
   
 
-<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="NEON VAULT" type="application/atom+xml">
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="暖墨小栈" type="application/atom+xml">
 </head>
 <body>
-  <!-- Background -->
-  <canvas id="particles-canvas"></canvas>
-  <div class="scanlines"></div>
-  <div class="vignette"></div>
-
-  <!-- Custom Cursor -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
-
-  <!-- Preloader -->
-  <div class="preloader">
-    <div class="preloader-text">
-      <span class="glitch-text" data-text="NEON VAULT">NEON VAULT</span>
-    </div>
-    <div class="preloader-bar">
-      <div class="preloader-bar-fill"></div>
-    </div>
-  </div>
+  <canvas id="petals-canvas"></canvas>
+  <div class="paper-texture"></div>
 
   <div class="site-wrapper">
     <header class="site-header">
   <div class="header-inner">
     <a href="/" class="site-logo">
-      <svg class="logo-svg" viewBox="0 0 60 60" width="48" height="48">
+      <svg class="logo-svg" viewBox="0 0 60 60" width="42" height="42">
         <defs>
-          <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#ff2d95"/>
-            <stop offset="50%" style="stop-color:#bd00ff"/>
-            <stop offset="100%" style="stop-color:#00d4ff"/>
+          <linearGradient id="logo-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4784f"/>
+            <stop offset="100%" stop-color="#c44536"/>
           </linearGradient>
-          <filter id="logo-glow">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
         </defs>
-        <polygon points="30,5 55,25 55,50 30,55 5,50 5,25" fill="none" stroke="url(#logo-grad)" stroke-width="2.5" filter="url(#logo-glow)"/>
-        <text x="30" y="36" text-anchor="middle" fill="url(#logo-grad)" font-family="JetBrains Mono" font-size="16" font-weight="bold" filter="url(#logo-glow)">NV</text>
+        <circle cx="30" cy="30" r="26" fill="none" stroke="url(#logo-warm)" stroke-width="2.5"/>
+        <text x="30" y="38" text-anchor="middle" fill="url(#logo-warm)" font-family="ZCOOL XiaoWei, serif" font-size="22">暖</text>
       </svg>
-      <span class="logo-text">NEON VAULT</span>
+      <span class="logo-text">暖墨小栈</span>
     </a>
 
     <nav class="site-nav">
       
-        <a href="/" class="nav-link">
-          <span class="nav-text">主页</span>
-          <span class="nav-hover"></span>
-        </a>
+        <a href="/" class="nav-link">首页</a>
       
-        <a href="/archives" class="nav-link">
-          <span class="nav-text">归档</span>
-          <span class="nav-hover"></span>
-        </a>
+        <a href="/archives" class="nav-link">归档</a>
       
-        <a href="/categories" class="nav-link">
-          <span class="nav-text">分类</span>
-          <span class="nav-hover"></span>
-        </a>
+        <a href="/categories" class="nav-link">分类</a>
       
-        <a href="/tags" class="nav-link">
-          <span class="nav-text">标签</span>
-          <span class="nav-hover"></span>
-        </a>
+        <a href="/tags" class="nav-link">标签</a>
       
-        <a href="/about" class="nav-link">
-          <span class="nav-text">关于</span>
-          <span class="nav-hover"></span>
-        </a>
+        <a href="/about" class="nav-link">关于</a>
       
     </nav>
 
-    <div class="header-actions">
-      <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
-        <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>
-        <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/></svg>
-      </button>
-      <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="菜单">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-
   <div class="mobile-nav" id="mobile-nav">
     
-      <a href="/">主页</a>
+      <a href="/">首页</a>
     
       <a href="/archives">归档</a>
     
@@ -128,6 +76,7 @@
       <a href="/about">关于</a>
     
   </div>
+  <div class="header-ink"></div>
 </header>
 
     <main class="main-content">
@@ -136,95 +85,46 @@
 
 <div class="hero-section">
   <div class="hero-content">
-    <div class="hero-badge">
-      <span class="badge-dot"></span> EXPLORE THE DIGITAL REALM
-    </div>
-    <h1 class="hero-title">
-      <span class="glitch-text" data-text="NEON VAULT">NEON VAULT</span>
-    </h1>
-    <p class="hero-subtitle">一个热爱技术的开发者，探索代码、设计与未来的无限可能</p>
+    <h1 class="hero-title">暖墨小栈</h1>
+    <p class="hero-subtitle">一个热爱技术的开发者，用文字记录编程心得与生活感悟</p>
     <div class="hero-actions">
-      <a href="/archives" class="btn-primary">
-        <span>探索文章</span>
-        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-      </a>
-      <a href="/about" class="btn-secondary">
-        <span>关于我</span>
-      </a>
+      <a href="/archives" class="btn-primary">阅读文章</a>
+      <a href="/about" class="btn-outline">关于我</a>
     </div>
   </div>
   <div class="hero-visual">
-    <svg class="hero-geo" viewBox="0 0 400 400">
+    <svg class="hero-illustration" viewBox="0 0 300 300">
       <defs>
-        <linearGradient id="hero-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#ff2d95" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.1"/>
+        <linearGradient id="ink1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#d4784f" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#c44536" stop-opacity="0.2"/>
         </linearGradient>
       </defs>
-      <circle cx="200" cy="200" r="180" fill="none" stroke="url(#hero-grad1)" stroke-width="0.5"/>
-      <circle cx="200" cy="200" r="140" fill="none" stroke="#ff2d95" stroke-width="0.3" stroke-dasharray="4 8" opacity="0.4"/>
-      <circle cx="200" cy="200" r="100" fill="none" stroke="#00d4ff" stroke-width="0.3" stroke-dasharray="2 6" opacity="0.5"/>
-      <circle cx="200" cy="200" r="60" fill="none" stroke="#bd00ff" stroke-width="0.5" opacity="0.6"/>
+      <circle cx="150" cy="150" r="120" fill="none" stroke="url(#ink1)" stroke-width="1.5"/>
+      <circle cx="150" cy="150" r="80" fill="none" stroke="#d4a76a" stroke-width="0.8" stroke-dasharray="3 6"/>
+      <text x="150" y="120" text-anchor="middle" font-family="Liu Jian Mao Cao, cursive" font-size="64" fill="#c44536" opacity="0.7">暖</text>
+      <text x="150" y="170" text-anchor="middle" font-family="Liu Jian Mao Cao, cursive" font-size="36" fill="#d4a76a" opacity="0.5">墨</text>
       <g opacity="0.3">
-        <line x1="200" y1="20" x2="200" y2="60" stroke="#ff2d95" stroke-width="0.5"/>
-        <line x1="200" y1="340" x2="200" y2="380" stroke="#ff2d95" stroke-width="0.5"/>
-        <line x1="20" y1="200" x2="60" y2="200" stroke="#00d4ff" stroke-width="0.5"/>
-        <line x1="340" y1="200" x2="380" y2="200" stroke="#00d4ff" stroke-width="0.5"/>
+        <circle cx="50" cy="80" r="4" fill="#d4784f"/><circle cx="240" cy="100" r="3" fill="#e8b86d"/>
+        <circle cx="220" cy="220" r="5" fill="#c44536"/><circle cx="70" cy="210" r="3" fill="#d4784f"/>
       </g>
-      <g opacity="0.2">
-        
-          <circle cx="360" cy="200" r="3" fill="#bd00ff"/>
-        
-          <circle cx="338.5640646055102" cy="280" r="3" fill="#bd00ff"/>
-        
-          <circle cx="280" cy="338.56406460551017" r="3" fill="#bd00ff"/>
-        
-          <circle cx="200" cy="360" r="3" fill="#bd00ff"/>
-        
-          <circle cx="120.00000000000003" cy="338.5640646055102" r="3" fill="#bd00ff"/>
-        
-          <circle cx="61.4359353944898" cy="280" r="3" fill="#bd00ff"/>
-        
-          <circle cx="40" cy="200.00000000000003" r="3" fill="#bd00ff"/>
-        
-          <circle cx="61.435935394489775" cy="120.00000000000004" r="3" fill="#bd00ff"/>
-        
-          <circle cx="119.99999999999993" cy="61.43593539448983" r="3" fill="#bd00ff"/>
-        
-          <circle cx="199.99999999999997" cy="40" r="3" fill="#bd00ff"/>
-        
-          <circle cx="280" cy="61.43593539448983" r="3" fill="#bd00ff"/>
-        
-          <circle cx="338.5640646055101" cy="119.99999999999993" r="3" fill="#bd00ff"/>
-        
-      </g>
-      <text x="200" y="208" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="28" font-weight="bold" opacity="0.9">NV</text>
     </svg>
   </div>
 </div>
 
 <section class="posts-section">
-  <div class="section-header">
-    <h2 class="section-title">
-      <span class="neon-line"></span> 最新文章 <span class="neon-line"></span>
-    </h2>
-  </div>
-
+  <h2 class="section-title">📝 最近文章</h2>
   <div class="posts-grid">
-    
-      <article class="post-card">
+    <article class="post-card">
   
     
       <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" class="post-card-category">技术教程</a>
     
   
-
   <h2 class="post-card-title">
     <a href="/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/">探索 AI Agent：构建你的第一个智能体</a>
   </h2>
-
   
-
   <div class="post-card-meta">
     <div class="post-card-tags">
       
@@ -244,21 +144,16 @@
     <time class="post-card-date">2026-05-20</time>
   </div>
 </article>
-
-    
-      <article class="post-card">
+<article class="post-card">
   
     
       <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" class="post-card-category">技术教程</a>
     
   
-
   <h2 class="post-card-title">
     <a href="/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/">现代 CSS 魔法：打造令人惊叹的视觉效果</a>
   </h2>
-
   
-
   <div class="post-card-meta">
     <div class="post-card-tags">
       
@@ -278,21 +173,16 @@
     <time class="post-card-date">2026-05-18</time>
   </div>
 </article>
-
-    
-      <article class="post-card">
+<article class="post-card">
   
     
       <a href="/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/" class="post-card-category">技术思考</a>
     
   
-
   <h2 class="post-card-title">
     <a href="/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/">为什么 Rust 正在改变系统编程的未来</a>
   </h2>
-
   
-
   <div class="post-card-meta">
     <div class="post-card-tags">
       
@@ -310,21 +200,16 @@
     <time class="post-card-date">2026-05-15</time>
   </div>
 </article>
-
-    
-      <article class="post-card">
+<article class="post-card">
   
     
       <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" class="post-card-category">技术教程</a>
     
   
-
   <h2 class="post-card-title">
     <a href="/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">用 Docker 构建完美开发环境</a>
   </h2>
-
   
-
   <div class="post-card-meta">
     <div class="post-card-tags">
       
@@ -342,21 +227,16 @@
     <time class="post-card-date">2026-05-10</time>
   </div>
 </article>
-
-    
-      <article class="post-card">
+<article class="post-card">
   
     
       <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" class="post-card-category">技术教程</a>
     
   
-
   <h2 class="post-card-title">
     <a href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/">如何搭建个人技术博客</a>
   </h2>
-
   
-
   <div class="post-card-meta">
     <div class="post-card-tags">
       
@@ -373,9 +253,7 @@
   </div>
 </article>
 
-    
   </div>
-
   
 
 </section>
@@ -384,16 +262,17 @@
 
     </main>
     <footer class="site-footer">
+      <div class="footer-ink-top"></div>
       <div class="footer-inner">
         <div class="footer-grid">
           <div class="footer-col">
-            <h4>NEON VAULT</h4>
-            <p class="footer-desc">一个热爱技术的开发者，探索代码、设计与未来的无限可能</p>
+            <h4>暖墨小栈</h4>
+            <p class="footer-desc">一个热爱技术的开发者，用文字记录编程心得与生活感悟</p>
           </div>
           <div class="footer-col">
             <h4>导航</h4>
             
-              <a href="/">主页</a>
+              <a href="/">首页</a>
             
               <a href="/archives">归档</a>
             
@@ -405,7 +284,7 @@
             
           </div>
           <div class="footer-col">
-            <h4>社交</h4>
+            <h4>联系</h4>
             
               
                 <a href="https://github.com/yucu666" target="_blank" rel="noopener">github</a>
@@ -421,36 +300,17 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <div class="footer-line"></div>
-          <p>&copy; 2025 - 2026 yucu. Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & Neon Vault</p>
+          <p>&copy; 2025 - 2026 yucu &bull; 用 Hexo & 暖墨构建</p>
         </div>
       </div>
     </footer>
   </div>
 
   <script src="/js/main.js"></script>
-  <script src="/js/particles.js"></script>
+  <script src="/js/petals.js"></script>
   
 <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/core.min.js"></script>
 <script>hljs.highlightAll();</script>
-
-
-
-<script src="https://giscus.app/client.js"
-  data-repo=""
-  data-repo-id=""
-  data-category=""
-  data-category-id=""
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="bottom"
-  data-theme="dark"
-  data-lang="zh-CN"
-  crossorigin="anonymous"
-  async>
-</script>
 
 
 </body>

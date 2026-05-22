@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>NEON VAULT</title>
+  <title>暖墨小栈</title>
   <icon>https://yucu666.github.io/icon.png</icon>
-  <subtitle>代码是霓虹，思想即宇宙</subtitle>
+  <subtitle>记录技术与生活的小角落，温润如纸，淡雅如墨</subtitle>
   <link href="https://yucu666.github.io/atom.xml" rel="self"/>
   
   <link href="https://yucu666.github.io/"/>
