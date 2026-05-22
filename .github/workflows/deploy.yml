@@ -1,0 +1,43 @@
+name: Build & Deploy Blog
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 8 * * *'   # 每天北京时间 16:00 自动构建
+  workflow_dispatch:       # 支持手动触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup SSH for deploy
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Generate & Deploy
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          npx hexo clean
+          npx hexo generate
+          npx hexo deploy
+
+      - name: Backup source (if changes detected)
+        run: |
+          if ! git diff --quiet || ! git diff --cached --quiet; then
+            echo "No source changes to commit"
+          fi
