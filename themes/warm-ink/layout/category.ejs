@@ -1,8 +1,16 @@
 <%- partial('_partial/head') %>
 <div class="page-hero"><h1 class="page-hero-title">分类</h1></div>
 <div class="page-layout">
-  <div class="category-grid">
-    <% site.categories.each(function(cat) { %><a href="<%= url_for(cat.path) %>" class="category-card"><span class="cat-icon"><%= cat.name.charAt(0) %></span><div class="cat-info"><h3><%= cat.name %></h3><span><%= cat.posts.length %> 篇</span></div></a><% }) %>
+  <div>
+    <div class="category-grid">
+      <% site.categories.each(function(cat) { %><a href="<%= url_for(cat.path) %>" class="category-card"><span class="cat-icon"><%= cat.name.charAt(0) %></span><div class="cat-info"><h3><%= cat.name %></h3><span><%= cat.posts.length %> 篇</span></div></a><% }) %>
+    </div>
+    <% if (site.tags && site.tags.length) { %>
+    <h2 class="section-subtitle">🏷 所有标签</h2>
+    <div class="tag-cloud-page">
+      <% site.tags.each(function(tag) { %><a href="<%= url_for(tag.path) %>" class="tag-bubble"><span class="tag-hash">#</span><%= tag.name %><sup><%= tag.posts.length %></sup></a><% }) %>
+    </div>
+    <% } %>
   </div>
   <%- partial('_partial/sidebar') %>
 </div>
