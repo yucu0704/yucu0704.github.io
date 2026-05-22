@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#1a1040"/>
+    </linearGradient>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2d95"/>
+      <stop offset="50%" stop-color="#bd00ff"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="200" height="200" rx="50" fill="url(#bg)"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="url(#grad)" stroke-width="2" opacity="0.5"/>
+  <circle cx="100" cy="100" r="60" fill="none" stroke="#ff2d95" stroke-width="1" stroke-dasharray="4 6" opacity="0.4"/>
+  <circle cx="100" cy="100" r="40" fill="none" stroke="#00d4ff" stroke-width="1" stroke-dasharray="2 4" opacity="0.5"/>
+  <polygon points="100,35 140,70 125,110 75,110 60,70" fill="none" stroke="url(#grad)" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="100" y="88" text-anchor="middle" fill="url(#grad)" font-family="JetBrains Mono, monospace" font-size="28" font-weight="bold" filter="url(#glow)">NV</text>
+  <circle cx="40" cy="50" r="3" fill="#00d4ff" opacity="0.6"/>
+  <circle cx="160" cy="60" r="2" fill="#ff2d95" opacity="0.5"/>
+  <circle cx="150" cy="160" r="2.5" fill="#bd00ff" opacity="0.5"/>
+  <circle cx="55" cy="150" r="2" fill="#39ff14" opacity="0.4"/>
+</svg>
