@@ -1,0 +1,41 @@
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4><%= config.title %></h4>
+            <p class="footer-desc"><%= config.description %></p>
+          </div>
+          <div class="footer-col">
+            <h4>导航</h4>
+            <% for (var i in theme.menu) { %>
+              <a href="<%= url_for(theme.menu[i].split(' || ')[0]) %>"><%= theme.menu[i].split(' || ')[1] %></a>
+            <% } %>
+          </div>
+          <div class="footer-col">
+            <h4>社交</h4>
+            <% if (theme.social) { %>
+              <% for (var key in theme.social) { %>
+                <a href="<%= theme.social[key] %>" target="_blank" rel="noopener"><%= key %></a>
+              <% } %>
+            <% } %>
+          </div>
+          <div class="footer-col">
+            <h4>订阅</h4>
+            <a href="<%= url_for('/atom.xml') %>">RSS</a>
+            <a href="<%= url_for('/sitemap.xml') %>">站点地图</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-line"></div>
+          <p>&copy; <%= theme.footer.since %> - <%= date(new Date(), 'YYYY') %> <%= config.author %>. Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & Neon Vault</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="<%= url_for('/js/main.js') %>"></script>
+  <script src="<%= url_for('/js/particles.js') %>"></script>
+  <%- partial('_partial/scripts') %>
+</body>
+</html>

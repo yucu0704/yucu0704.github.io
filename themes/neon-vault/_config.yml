@@ -1,0 +1,48 @@
+# Neon Vault Theme Configuration
+# 霓虹赛博朋克风格主题
+
+# 站点元数据
+avatar: /images/avatar.svg
+favicon: /images/favicon.svg
+
+# 导航菜单
+menu:
+  home: / || 主页
+  archives: /archives || 归档
+  categories: /categories || 分类
+  tags: /tags || 标签
+  about: /about || 关于
+
+# 社交链接
+social:
+  github: https://github.com/yucu666
+  email: mailto:yucu@example.com
+
+# 首页设置
+index:
+  posts_per_page: 8
+
+# 侧边栏
+sidebar:
+  position: right
+
+# 代码高亮
+highlight:
+  enable: true
+  theme: neon
+
+# 动画
+animation:
+  enable: true
+  particles: true
+
+# 评论
+comments:
+  enable: true
+  type: giscus
+
+# 页脚
+footer:
+  since: 2025
+  copyright: true
+  powered: true

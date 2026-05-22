@@ -1,0 +1,22 @@
+<% if (config.syntax_highlighter === 'highlight.js') { %>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/core.min.js"></script>
+<script>hljs.highlightAll();</script>
+<% } %>
+
+<% if (theme.comments && theme.comments.enable && theme.comments.type === 'giscus') { %>
+<script src="https://giscus.app/client.js"
+  data-repo="<%= theme.comments.repo %>"
+  data-repo-id="<%= theme.comments.repo_id %>"
+  data-category="<%= theme.comments.category %>"
+  data-category-id="<%= theme.comments.category_id %>"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="dark"
+  data-lang="zh-CN"
+  crossorigin="anonymous"
+  async>
+</script>
+<% } %>

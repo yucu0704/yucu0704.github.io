@@ -1,0 +1,237 @@
+# ===============================================================
+# NexT Theme Configuration
+# ===============================================================
+# 更多配置选项请参考: https://theme-next.js.org/docs/getting-started/configuration.html
+
+# ---------------------------------------------------------------
+# 主题设置
+# ---------------------------------------------------------------
+# 选择主题方案
+# 可选值: Muse | Mist | Pisces | Gemini
+scheme: Gemini
+
+# 网站图标
+favicon:
+  small: /images/favicon-16x16-next.png
+  medium: /images/favicon-32x32-next.png
+  apple_touch_icon: /images/apple-touch-icon-next.png
+  safari_pinned_tab: /images/logo.svg
+
+# 自定义Logo (可以替换为您的Logo)
+custom_logo: # /images/logo.svg
+
+# ---------------------------------------------------------------
+# 菜单设置
+# ---------------------------------------------------------------
+menu:
+  home: / || fa fa-home
+  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  #schedule: /schedule/ || fa fa-calendar
+  #sitemap: /sitemap.xml || fa fa-sitemap
+  #commonweal: /404/ || fa fa-heartbeat
+
+# 启用菜单图标
+menu_icons:
+  enable: true
+
+# ---------------------------------------------------------------
+# 侧边栏设置
+# ---------------------------------------------------------------
+sidebar:
+  # 侧边栏位置
+  position: left
+  # 侧边栏显示方式
+  display: post
+  # 侧边栏宽度 (单位: px)
+  width: 256
+  # 侧边栏偏移 (顶部距离, 单位: px)
+  offset: 12
+  # 在设备上显示侧边栏
+  onmobile: true
+
+# ---------------------------------------------------------------
+# 头像设置
+# ---------------------------------------------------------------
+avatar:
+  # 替换为您的头像路径
+  url: /images/yucu.png
+  # 如果设置为true，头像会随页面滚动而动
+  rounded: false
+  # 如果设置为true，头像会旋转
+  rotated: false
+
+# ---------------------------------------------------------------
+# 社交链接
+# ---------------------------------------------------------------
+social:
+  GitHub: https://github.com/yucu666 || fab fa-github
+  #E-Mail: mailto:yourname@example.com || fa fa-envelope
+  #Weibo: https://weibo.com/yourname || fab fa-weibo
+  #Google: https://plus.google.com/yourname || fab fa-google
+  #Twitter: https://twitter.com/yourname || fab fa-twitter
+  #FB Page: https://www.facebook.com/yourname || fab fa-facebook
+  #StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
+  #YouTube: https://youtube.com/yourname || fab fa-youtube
+  #Instagram: https://instagram.com/yourname || fab fa-instagram
+  #Skype: skype:yourname?call|chat || fab fa-skype
+
+social_icons:
+  enable: true
+  icons_only: false
+  transition: true
+
+# ---------------------------------------------------------------
+# 文章设置
+# ---------------------------------------------------------------
+# 自动生成目录
+toc:
+  enable: true
+  number: true
+  wrap: true
+  expand_all: false
+  max_depth: 6
+
+# 阅读进度条
+reading_progress:
+  enable: true
+  start_at: left
+  position: top
+  reversed: false
+  color: "#37c6c0"
+  height: 3px
+
+# ---------------------------------------------------------------
+# 评论系统
+# ---------------------------------------------------------------
+# 多种评论系统可选，这里使用Valine
+comments:
+  # 可选值: false | true
+  active: true
+  # 使用的评论系统
+  style: tabs
+  # 可选评论系统: valine
+
+# Valine 评论系统
+# 需要先注册LeanCloud并获取App ID和App Key
+valine:
+  enable: true
+  appid:  # 你的LeanCloud App ID
+  appkey: # 你的LeanCloud App Key
+  notify: false # 邮件通知
+  verify: false # 验证码
+  placeholder: 说点什么吧 # 评论框占位符
+  avatar: mm # 头像风格
+  guest_info: nick,mail,link # 评论者信息
+  pageSize: 10 # 每页评论数
+  language: zh-CN # 语言
+  visitor: false # 统计访问量
+  highlight: true # 代码高亮
+
+# ---------------------------------------------------------------
+# 搜索功能
+# ---------------------------------------------------------------
+local_search:
+  enable: true
+  # 如果自动生成索引失败，可以手动设置
+  preload: false
+  # 加载动画
+  loading:
+    enabled: true
+    img: /images/loading.gif
+
+# ---------------------------------------------------------------
+# 站点统计
+# ---------------------------------------------------------------
+# 百度统计 (可选)
+baidu_analytics: # 你的百度统计代码
+
+# Google Analytics (可选)
+google_analytics:
+  tracking_id: # 你的GA跟踪ID
+  localhost_ignored: true
+
+# ---------------------------------------------------------------
+# CDN设置
+# ---------------------------------------------------------------
+vendors:
+  # The CDN provider of NexT internal scripts.
+  # Available values: local | jsdelivr | unpkg | cdnjs | custom
+  internal: local
+  # The default CDN provider of third-party plugins.
+  # Available values: local | jsdelivr | unpkg | cdnjs | custom
+  plugins: jsdelivr
+  # Custom CDN URL
+  custom_cdn_url: https://cdn.jsdelivr.net
+
+# ---------------------------------------------------------------
+# 动画效果
+# ---------------------------------------------------------------
+motion:
+  enable: true
+  async: false
+  transition:
+    # 可选值: fadeIn | fadeInUp | fadeInDown | fadeInLeft | fadeInRight | bounceIn
+    post_block: fadeIn
+    post_header: fadeInDown
+    post_body: fadeInDown
+    coll_header: fadeInLeft
+    # 仅在Pisces | Gemini方案中有效
+    sidebar: fadeInUp
+
+# ---------------------------------------------------------------
+# 代码块设置
+# ---------------------------------------------------------------
+codeblock:
+  # 代码高亮主题
+  highlight_theme:
+    light: default
+    dark: tomorrow-night
+  # 复制代码按钮
+  copy_button:
+    enable: true
+    # 显示结果文本
+    show_result: true
+    # 显示代码语言
+    show_language: true
+
+# ---------------------------------------------------------------
+# 回到顶部按钮
+# ---------------------------------------------------------------
+back2top:
+  enable: true
+  # 回到顶部按钮出现的位置
+  sidebar: false
+  # 滚动进度百分比
+  scrollpercent: true
+
+# ---------------------------------------------------------------
+# 其他设置
+# ---------------------------------------------------------------
+# 数学公式支持
+math:
+  enable: false
+  engine: 'mathjax'
+  mathjax:
+    enable: true
+    config:
+      tex:
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+        displayMath: [ ['$$','$$'], ['\\[','\\]'] ]
+      options:
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  katex:
+    enable: false
+    copy_tex: false
+
+# 快捷键
+quicklink:
+  enable: true
+  icon: fa fa-arrow-right
+  # 可选值: home | post
+  priority: true
+  ignores:
+    - /about/
+    - /contact/

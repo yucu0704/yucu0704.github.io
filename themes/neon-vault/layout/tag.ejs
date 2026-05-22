@@ -1,0 +1,20 @@
+<%- partial('_partial/head') %>
+
+<div class="page-simple">
+  <div class="page-hero">
+    <h1 class="page-hero-title"><span class="glitch-text" data-text="标签">标签</span></h1>
+  </div>
+  <div class="page-layout">
+    <div class="tag-cloud-page">
+      <% site.tags.each(function(tag) { %>
+        <a href="<%= url_for(tag.path) %>" class="tag-bubble" style="--tag-size: <%= Math.min(2, Math.max(0.8, tag.posts.length / 5)) %>">
+          <span class="tag-hash">#</span><%= tag.name %>
+          <sup><%= tag.posts.length %></sup>
+        </a>
+      <% }) %>
+    </div>
+    <%- partial('_partial/sidebar') %>
+  </div>
+</div>
+
+<%- partial('_partial/footer') %>

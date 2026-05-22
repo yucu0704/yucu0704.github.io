@@ -1,0 +1,15 @@
+<%- partial('_partial/head') %>
+
+<div class="page-simple">
+  <div class="page-hero">
+    <h1 class="page-hero-title"><span class="glitch-text" data-text="<%= page.title %>"><%= page.title %></span></h1>
+  </div>
+  <div class="page-layout">
+    <article class="page-content">
+      <%- page.content %>
+    </article>
+    <%- partial('_partial/sidebar') %>
+  </div>
+</div>
+
+<%- partial('_partial/footer') %>
