@@ -21,7 +21,7 @@ type: "works"
       <span>Python</span><span>LangChain</span><span>OpenAI</span><span>FastAPI</span>
     </div>
     <div class="work-links">
-      <a href="https://github.com/yucu0704" target="_blank">🔗 GitHub</a>
+      <a href="https://github.com/yucu666" target="_blank">🔗 GitHub</a>
       <a href="#" target="_blank">🌐 Demo</a>
     </div>
   </div>
@@ -36,8 +36,8 @@ type: "works"
       <span>Hexo</span><span>EJS</span><span>CSS</span><span>Canvas</span>
     </div>
     <div class="work-links">
-      <a href="https://github.com/yucu0704/my-blog-source" target="_blank">🔗 GitHub</a>
-      <a href="https://yucu0704.github.io" target="_blank">🌐 预览</a>
+      <a href="https://github.com/yucu666/my-blog-source" target="_blank">🔗 GitHub</a>
+      <a href="https://yucu666.github.io" target="_blank">🌐 预览</a>
     </div>
   </div>
 </div>
@@ -51,7 +51,7 @@ type: "works"
       <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>ECharts</span>
     </div>
     <div class="work-links">
-      <a href="https://github.com/yucu0704" target="_blank">🔗 GitHub</a>
+      <a href="https://github.com/yucu666" target="_blank">🔗 GitHub</a>
     </div>
   </div>
 </div>
@@ -65,8 +65,8 @@ type: "works"
       <span>Hexo</span><span>EJS</span><span>CSS</span><span>Canvas</span>
     </div>
     <div class="work-links">
-      <a href="https://github.com/yucu0704/my-blog-source" target="_blank">🔗 GitHub</a>
-      <a href="https://yucu0704.github.io" target="_blank">🌐 当前站点</a>
+      <a href="https://github.com/yucu666/my-blog-source" target="_blank">🔗 GitHub</a>
+      <a href="https://yucu666.github.io" target="_blank">🌐 当前站点</a>
     </div>
   </div>
 </div>
