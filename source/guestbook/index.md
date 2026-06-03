@@ -19,7 +19,7 @@ type: "guestbook"
 <div class="giscus"></div>
 
 <script src="https://giscus.app/client.js"
-  data-repo="yucu666/yucu666.github.io"
+  data-repo="yucu0704/yucu0704.github.io"
   data-repo-id=""
   data-category="General"
   data-category-id=""
