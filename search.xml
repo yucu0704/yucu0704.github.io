@@ -1,77 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>用 Docker 构建完美开发环境</title>
-    <url>/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
-    <content><![CDATA[<h2 id="告别”在我电脑上能跑”"><a href="#告别”在我电脑上能跑”" class="headerlink" title="告别”在我电脑上能跑”"></a>告别”在我电脑上能跑”</h2><p>每个开发者都听过这句话。Docker 从根本上解决了环境一致性问题——将应用及其依赖打包到一个<strong>容器</strong>中，实现”构建一次，到处运行”。</p>
-<h2 id="🐳-Docker-核心概念"><a href="#🐳-Docker-核心概念" class="headerlink" title="🐳 Docker 核心概念"></a>🐳 Docker 核心概念</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────────────────────────────┐</span><br><span class="line">│           Docker 镜像               │</span><br><span class="line">│  ┌─────────────────────────────┐   │</span><br><span class="line">│  │   应用代码 + 运行时 + 依赖    │   │</span><br><span class="line">│  └─────────────────────────────┘   │</span><br><span class="line">│              ▼ 运行                  │</span><br><span class="line">│  ┌─────────────────────────────┐   │</span><br><span class="line">│  │       Docker 容器            │   │</span><br><span class="line">│  └─────────────────────────────┘   │</span><br><span class="line">└─────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
-
-<h2 id="📦-实战：Node-js-开发环境"><a href="#📦-实战：Node-js-开发环境" class="headerlink" title="📦 实战：Node.js 开发环境"></a>📦 实战：Node.js 开发环境</h2><h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">20</span>-alpine</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用缓存层</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm ci --only=production</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3000</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;server.js&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Docker-Compose-编排"><a href="#Docker-Compose-编排" class="headerlink" title="Docker Compose 编排"></a>Docker Compose 编排</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">.:/app</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/app/node_modules</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NODE_ENV=development</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:16-alpine</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">POSTGRES_DB:</span> <span class="string">myapp</span></span><br><span class="line">      <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">secret</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">pgdata:/var/lib/postgresql/data</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:7-alpine</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">pgdata:</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="🚀-多阶段构建优化"><a href="#🚀-多阶段构建优化" class="headerlink" title="🚀 多阶段构建优化"></a>🚀 多阶段构建优化</h2><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 构建阶段</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">20</span>-alpine AS builder</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm ci</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm run build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行阶段（仅保留必要文件）</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">20</span>-alpine</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> --from=builder /app/dist ./dist</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> --from=builder /app/node_modules ./node_modules</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3000</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;dist/server.js&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>效果</strong>: 最终镜像从 800MB 缩小到 120MB !</p>
-<h2 id="📋-最佳实践清单"><a href="#📋-最佳实践清单" class="headerlink" title="📋 最佳实践清单"></a>📋 最佳实践清单</h2><table>
-<thead>
-<tr>
-<th>✅</th>
-<th>实践</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>✅</td>
-<td>使用 <code>.dockerignore</code></td>
-<td>排除 node_modules, .git 等</td>
-</tr>
-<tr>
-<td>✅</td>
-<td>多阶段构建</td>
-<td>大幅减小镜像体积</td>
-</tr>
-<tr>
-<td>✅</td>
-<td>Alpine 基础镜像</td>
-<td>安全 + 体积极小 (~5MB)</td>
-</tr>
-<tr>
-<td>✅</td>
-<td>固定版本号</td>
-<td>避免 <code>latest</code> 标签</td>
-</tr>
-<tr>
-<td>✅</td>
-<td>非 root 用户</td>
-<td>提升安全性</td>
-</tr>
-<tr>
-<td>✅</td>
-<td>HEALTHCHECK</td>
-<td>自动检测容器健康状态</td>
-</tr>
-</tbody></table>
-<h2 id="🔐-安全加固"><a href="#🔐-安全加固" class="headerlink" title="🔐 安全加固"></a>🔐 安全加固</h2><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建非 root 用户</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> addgroup -g 1001 -S appgroup &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    adduser -S appuser -u 1001 -G appgroup</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">USER</span> appuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 健康检查</span></span><br><span class="line"><span class="keyword">HEALTHCHECK</span><span class="language-bash"> --interval=30s --<span class="built_in">timeout</span>=3s \</span></span><br><span class="line"><span class="language-bash">  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || <span class="built_in">exit</span> 1</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="🎯-Docker-开发工作流"><a href="#🎯-Docker-开发工作流" class="headerlink" title="🎯 Docker + 开发工作流"></a>🎯 Docker + 开发工作流</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动完整开发环境</span></span><br><span class="line">docker compose up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">docker compose logs -f app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入容器调试</span></span><br><span class="line">docker compose <span class="built_in">exec</span> app sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行一次性命令</span></span><br><span class="line">docker compose run --<span class="built_in">rm</span> app npm <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Docker 不仅仅是一个工具，它是一种<strong>开发哲学</strong>——环境即代码。将你的开发环境写进 Dockerfile，从此告别”环境问题”，专注于真正重要的事情：<strong>写代码</strong>。</p>
-<blockquote>
-<p>好的开发环境应该是隐形的——它安静地工作，从不打扰你的创造。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>技术教程</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>DevOps</tag>
-        <tag>开发环境</tag>
-        <tag>容器化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用 GitHub Actions 自动化博客构建与部署</title>
     <url>/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<h2 id="为什么要自动化？"><a href="#为什么要自动化？" class="headerlink" title="为什么要自动化？"></a>为什么要自动化？</h2><p>之前我更新博客需要手动执行两条命令：</p>
@@ -137,320 +66,82 @@
         <category>技术教程</category>
       </categories>
       <tags>
-        <tag>DevOps</tag>
         <tag>GitHub Actions</tag>
         <tag>CI/CD</tag>
         <tag>Hexo</tag>
+        <tag>DevOps</tag>
         <tag>自动化</tag>
       </tags>
   </entry>
   <entry>
-    <title>给 Hexo 博客添加 Google Analytics 统计访问量</title>
-    <url>/2026/05/23/Hexo%E6%B7%BB%E5%8A%A0Google-Analytics%E7%BB%9F%E8%AE%A1/</url>
-    <content><![CDATA[<h2 id="为什么要加统计？"><a href="#为什么要加统计？" class="headerlink" title="为什么要加统计？"></a>为什么要加统计？</h2><p>写了文章发到网上，总想知道有没有人在看——哪篇最受欢迎、读者从哪来、用什么设备。Google Analytics（GA）免费、强大，几行代码就能给博客装上。</p>
-<h2 id="第一步：注册-Google-Analytics"><a href="#第一步：注册-Google-Analytics" class="headerlink" title="第一步：注册 Google Analytics"></a>第一步：注册 Google Analytics</h2><ol>
-<li>打开 <a href="https://analytics.google.com/">https://analytics.google.com</a></li>
-<li>用 Google 账号登录（没有的话去 mail.google.com 注册一个）</li>
-<li>点击「创建账号」→「创建媒体资源」</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">账号名称：我的博客</span><br><span class="line">媒体资源名称：暖墨小栈</span><br><span class="line">时区：中国 (GMT+08:00)</span><br><span class="line">货币：人民币 (CNY)</span><br></pre></td></tr></table></figure>
+    <title>用 Docker 构建完美开发环境</title>
+    <url>/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h2 id="告别”在我电脑上能跑”"><a href="#告别”在我电脑上能跑”" class="headerlink" title="告别”在我电脑上能跑”"></a>告别”在我电脑上能跑”</h2><p>每个开发者都听过这句话。Docker 从根本上解决了环境一致性问题——将应用及其依赖打包到一个<strong>容器</strong>中，实现”构建一次，到处运行”。</p>
+<h2 id="🐳-Docker-核心概念"><a href="#🐳-Docker-核心概念" class="headerlink" title="🐳 Docker 核心概念"></a>🐳 Docker 核心概念</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────────────────────────────┐</span><br><span class="line">│           Docker 镜像               │</span><br><span class="line">│  ┌─────────────────────────────┐   │</span><br><span class="line">│  │   应用代码 + 运行时 + 依赖    │   │</span><br><span class="line">│  └─────────────────────────────┘   │</span><br><span class="line">│              ▼ 运行                  │</span><br><span class="line">│  ┌─────────────────────────────┐   │</span><br><span class="line">│  │       Docker 容器            │   │</span><br><span class="line">│  └─────────────────────────────┘   │</span><br><span class="line">└─────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>选择「网站」平台</li>
-<li>填写网址 <code>https://你的域名.github.io</code></li>
-<li>创建后会得到一个 <strong>Measurement ID</strong>，格式 <code>G-XXXXXXXXXX</code></li>
-</ol>
-<h2 id="第二步：在-Hexo-主题中集成"><a href="#第二步：在-Hexo-主题中集成" class="headerlink" title="第二步：在 Hexo 主题中集成"></a>第二步：在 Hexo 主题中集成</h2><p>以我的暖墨主题为例，在主题 <code>_config.yml</code> 中添加：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">google_analytics:</span></span><br><span class="line">  <span class="attr">tracking_id:</span> <span class="string">G-YG72B0J9WX</span></span><br></pre></td></tr></table></figure>
+<h2 id="📦-实战：Node-js-开发环境"><a href="#📦-实战：Node-js-开发环境" class="headerlink" title="📦 实战：Node.js 开发环境"></a>📦 实战：Node.js 开发环境</h2><h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">20</span>-alpine</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用缓存层</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm ci --only=production</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3000</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;server.js&quot;</span>]</span></span><br></pre></td></tr></table></figure>
 
-<p>然后在主题的 <code>layout/_partial/</code> 目录下创建 <code>ga.ejs</code>：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.google_analytics &amp;&amp; theme.google_analytics.tracking_id) &#123; %&gt;</span><br><span class="line">&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=&lt;%= theme.google_analytics.tracking_id %&gt;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  window.dataLayer = window.dataLayer || [];</span><br><span class="line">  function gtag()&#123;dataLayer.push(arguments);&#125;</span><br><span class="line">  gtag(&#x27;js&#x27;, new Date());</span><br><span class="line">  gtag(&#x27;config&#x27;, &#x27;&lt;%= theme.google_analytics.tracking_id %&gt;&#x27;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Docker-Compose-编排"><a href="#Docker-Compose-编排" class="headerlink" title="Docker Compose 编排"></a>Docker Compose 编排</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">.:/app</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/app/node_modules</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NODE_ENV=development</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:16-alpine</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">POSTGRES_DB:</span> <span class="string">myapp</span></span><br><span class="line">      <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">secret</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">pgdata:/var/lib/postgresql/data</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:7-alpine</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">pgdata:</span></span><br></pre></td></tr></table></figure>
 
-<p>在 <code>head.ejs</code> 的 <code>&lt;head&gt;</code> 标签内引入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;%- partial(&#x27;_partial/ga&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="🚀-多阶段构建优化"><a href="#🚀-多阶段构建优化" class="headerlink" title="🚀 多阶段构建优化"></a>🚀 多阶段构建优化</h2><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 构建阶段</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">20</span>-alpine AS builder</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm ci</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm run build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行阶段（仅保留必要文件）</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">20</span>-alpine</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> --from=builder /app/dist ./dist</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> --from=builder /app/node_modules ./node_modules</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3000</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;dist/server.js&quot;</span>]</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="第三步：重新构建部署"><a href="#第三步：重新构建部署" class="headerlink" title="第三步：重新构建部署"></a>第三步：重新构建部署</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx hexo clean &amp;&amp; npx hexo generate &amp;&amp; npx hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>部署后用浏览器打开自己的博客，回到 GA 页面查看「实时」报告——如果看到 1 个活跃用户，说明配置成功 ✓</p>
-<h2 id="GA-能看什么？"><a href="#GA-能看什么？" class="headerlink" title="GA 能看什么？"></a>GA 能看什么？</h2><h3 id="📊-实时报告"><a href="#📊-实时报告" class="headerlink" title="📊 实时报告"></a>📊 实时报告</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当前在线用户数</span><br><span class="line">当前在浏览哪个页面</span><br><span class="line">来自哪个城市</span><br></pre></td></tr></table></figure>
-
-<h3 id="📈-生命周期报告"><a href="#📈-生命周期报告" class="headerlink" title="📈 生命周期报告"></a>📈 生命周期报告</h3><table>
+<p><strong>效果</strong>: 最终镜像从 800MB 缩小到 120MB !</p>
+<h2 id="📋-最佳实践清单"><a href="#📋-最佳实践清单" class="headerlink" title="📋 最佳实践清单"></a>📋 最佳实践清单</h2><table>
 <thead>
 <tr>
-<th>指标</th>
+<th>✅</th>
+<th>实践</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>用户数</td>
-<td>有多少独立访客</td>
+<td>✅</td>
+<td>使用 <code>.dockerignore</code></td>
+<td>排除 node_modules, .git 等</td>
 </tr>
 <tr>
-<td>会话数</td>
-<td>访问了多少次</td>
+<td>✅</td>
+<td>多阶段构建</td>
+<td>大幅减小镜像体积</td>
 </tr>
 <tr>
-<td>页面浏览量</td>
-<td>总共看了多少页</td>
+<td>✅</td>
+<td>Alpine 基础镜像</td>
+<td>安全 + 体积极小 (~5MB)</td>
 </tr>
 <tr>
-<td>平均互动时长</td>
-<td>每次停留多久</td>
+<td>✅</td>
+<td>固定版本号</td>
+<td>避免 <code>latest</code> 标签</td>
 </tr>
 <tr>
-<td>跳出率</td>
-<td>看了一眼就走的比例</td>
+<td>✅</td>
+<td>非 root 用户</td>
+<td>提升安全性</td>
+</tr>
+<tr>
+<td>✅</td>
+<td>HEALTHCHECK</td>
+<td>自动检测容器健康状态</td>
 </tr>
 </tbody></table>
-<h3 id="🌍-受众分析"><a href="#🌍-受众分析" class="headerlink" title="🌍 受众分析"></a>🌍 受众分析</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">国家/城市分布</span><br><span class="line">设备类型（手机/电脑/平板）</span><br><span class="line">浏览器和操作系统</span><br></pre></td></tr></table></figure>
+<h2 id="🔐-安全加固"><a href="#🔐-安全加固" class="headerlink" title="🔐 安全加固"></a>🔐 安全加固</h2><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建非 root 用户</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> addgroup -g 1001 -S appgroup &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    adduser -S appuser -u 1001 -G appgroup</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">USER</span> appuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 健康检查</span></span><br><span class="line"><span class="keyword">HEALTHCHECK</span><span class="language-bash"> --interval=30s --<span class="built_in">timeout</span>=3s \</span></span><br><span class="line"><span class="language-bash">  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || <span class="built_in">exit</span> 1</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="📝-内容分析"><a href="#📝-内容分析" class="headerlink" title="📝 内容分析"></a>📝 内容分析</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">哪篇文章阅读量最高</span><br><span class="line">读者从哪篇文章进来</span><br><span class="line">又在哪篇文章离开</span><br></pre></td></tr></table></figure>
+<h2 id="🎯-Docker-开发工作流"><a href="#🎯-Docker-开发工作流" class="headerlink" title="🎯 Docker + 开发工作流"></a>🎯 Docker + 开发工作流</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动完整开发环境</span></span><br><span class="line">docker compose up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">docker compose logs -f app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入容器调试</span></span><br><span class="line">docker compose <span class="built_in">exec</span> app sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行一次性命令</span></span><br><span class="line">docker compose run --<span class="built_in">rm</span> app npm <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="进阶技巧"><a href="#进阶技巧" class="headerlink" title="进阶技巧"></a>进阶技巧</h2><h3 id="排除自己的访问"><a href="#排除自己的访问" class="headerlink" title="排除自己的访问"></a>排除自己的访问</h3><p>在 GA 管理 → 数据流 → 配置代码设置 → 定义内部流量，添加规则：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">匹配类型：IP 地址</span><br><span class="line">值：你家的 IP</span><br></pre></td></tr></table></figure>
-
-<p>这样你自己的浏览就不会污染数据了。</p>
-<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><p>在文章里加按钮点击追踪：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;gtag(&#x27;event&#x27;, &#x27;download&#x27;, &#123; event_category: &#x27;resource&#x27; &#125;)&quot;</span>&gt;</span></span><br><span class="line">  下载文件</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="目标事件追踪"><a href="#目标事件追踪" class="headerlink" title="目标事件追踪"></a>目标事件追踪</h3><p>可以设置「访问关于页」、「停留超过 2 分钟」等作为转化目标，衡量博客的互动质量。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">注册 GA → 拿 ID → 加配置 → 重新部署</span><br></pre></td></tr></table></figure>
-
-<p>五分钟搞定，换来的是对自己博客读者群体的清晰认知。知道读者喜欢什么，你才知道该写什么。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Docker 不仅仅是一个工具，它是一种<strong>开发哲学</strong>——环境即代码。将你的开发环境写进 Dockerfile，从此告别”环境问题”，专注于真正重要的事情：<strong>写代码</strong>。</p>
 <blockquote>
-<p>数据不说谎，它让你写出更受欢迎的内容。</p>
+<p>好的开发环境应该是隐形的——它安静地工作，从不打扰你的创造。</p>
 </blockquote>
 ]]></content>
       <categories>
         <category>技术教程</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Google Analytics</tag>
-        <tag>博客</tag>
-        <tag>统计分析</tag>
-        <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>现代 CSS 魔法：打造令人惊叹的视觉效果</title>
-    <url>/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</url>
-    <content><![CDATA[<h2 id="CSS-不再是”简单样式”"><a href="#CSS-不再是”简单样式”" class="headerlink" title="CSS 不再是”简单样式”"></a>CSS 不再是”简单样式”</h2><p>2026 年的 CSS 已经是一门强大的声明式编程语言。从容器查询到视图过渡，现代 CSS 能实现过去需要 JavaScript 才能达成的效果。</p>
-<h2 id="🎨-玻璃态效果-Glassmorphism"><a href="#🎨-玻璃态效果-Glassmorphism" class="headerlink" title="🎨 玻璃态效果 (Glassmorphism)"></a>🎨 玻璃态效果 (Glassmorphism)</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.glass-card</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.05</span>);</span><br><span class="line">  <span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">20px</span>);</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.1</span>);</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">32px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>核心三要素</strong>:</p>
-<ul>
-<li>半透明背景 + <code>backdrop-filter</code></li>
-<li>细的浅色边框</li>
-<li>柔和的投影</li>
-</ul>
-<h2 id="✨-霓虹发光效果"><a href="#✨-霓虹发光效果" class="headerlink" title="✨ 霓虹发光效果"></a>✨ 霓虹发光效果</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.neon-text</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">text-shadow</span>:</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">7px</span> <span class="number">#ff2d95</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span> <span class="number">#ff2d95</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">21px</span> <span class="number">#ff2d95</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">42px</span> <span class="number">#bd00ff</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">82px</span> <span class="number">#bd00ff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.neon-border</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#00d4ff</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>:</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="number">#00d4ff</span>,</span><br><span class="line">    inset <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="number">#00d4ff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="🌀-CSS-动画技巧"><a href="#🌀-CSS-动画技巧" class="headerlink" title="🌀 CSS 动画技巧"></a>🌀 CSS 动画技巧</h2><h3 id="关键帧动画"><a href="#关键帧动画" class="headerlink" title="关键帧动画"></a>关键帧动画</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> float &#123;</span><br><span class="line">  <span class="number">0%</span>, <span class="number">100%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">0</span>) <span class="built_in">rotate</span>(<span class="number">0deg</span>); &#125;</span><br><span class="line">  <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">10px</span>) <span class="built_in">rotate</span>(<span class="number">1deg</span>); &#125;</span><br><span class="line">  <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">5px</span>) <span class="built_in">rotate</span>(-<span class="number">1deg</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.floating</span> &#123; <span class="attribute">animation</span>: float <span class="number">6s</span> ease-in-out infinite; &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="滚动驱动动画"><a href="#滚动驱动动画" class="headerlink" title="滚动驱动动画"></a>滚动驱动动画</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> slideIn &#123;</span><br><span class="line">  <span class="selector-tag">from</span> &#123; <span class="attribute">opacity</span>: <span class="number">0</span>; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">100px</span>); &#125;</span><br><span class="line">  <span class="selector-tag">to</span> &#123; <span class="attribute">opacity</span>: <span class="number">1</span>; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.reveal</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: slideIn linear;</span><br><span class="line">  <span class="attribute">animation-timeline</span>: <span class="built_in">view</span>();</span><br><span class="line">  <span class="attribute">animation-range</span>: entry <span class="number">0%</span> entry <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="🔮-2026-CSS-新特性速览"><a href="#🔮-2026-CSS-新特性速览" class="headerlink" title="🔮 2026 CSS 新特性速览"></a>🔮 2026 CSS 新特性速览</h2><table>
-<thead>
-<tr>
-<th>特性</th>
-<th>用途</th>
-<th>浏览器支持</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>@scope</code></td>
-<td>样式作用域隔离</td>
-<td>✅ 全面支持</td>
-</tr>
-<tr>
-<td><code>nesting</code></td>
-<td>原生嵌套语法</td>
-<td>✅ 全面支持</td>
-</tr>
-<tr>
-<td><code>view-transition</code></td>
-<td>页面过渡动画</td>
-<td>✅ 主流支持</td>
-</tr>
-<tr>
-<td><code>color-mix()</code></td>
-<td>颜色混合函数</td>
-<td>✅ 全面支持</td>
-</tr>
-<tr>
-<td><code>text-wrap: balance</code></td>
-<td>文本平衡换行</td>
-<td>✅ 全面支持</td>
-</tr>
-</tbody></table>
-<h2 id="🎯-实战技巧"><a href="#🎯-实战技巧" class="headerlink" title="🎯 实战技巧"></a>🎯 实战技巧</h2><h3 id="1-CSS-变量构建设计系统"><a href="#1-CSS-变量构建设计系统" class="headerlink" title="1. CSS 变量构建设计系统"></a>1. CSS 变量构建设计系统</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attr">--color-primary</span>: <span class="number">#ff2d95</span>;</span><br><span class="line">  <span class="attr">--color-secondary</span>: <span class="number">#00d4ff</span>;</span><br><span class="line">  <span class="attr">--space-xs</span>: <span class="number">0.25rem</span>;</span><br><span class="line">  <span class="attr">--space-sm</span>: <span class="number">0.5rem</span>;</span><br><span class="line">  <span class="attr">--space-md</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attr">--space-lg</span>: <span class="number">2rem</span>;</span><br><span class="line">  <span class="attr">--radius</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-容器查询实现组件级响应"><a href="#2-容器查询实现组件级响应" class="headerlink" title="2. 容器查询实现组件级响应"></a>2. 容器查询实现组件级响应</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@container</span> (<span class="attribute">min-width</span>: <span class="number">400px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.card</span> &#123; <span class="attribute">grid-template-columns</span>: <span class="number">1</span>fr <span class="number">1</span>fr; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现代 CSS 的边界在不断扩展。掌握这些新特性，能让你的网页从”能用”进化到”惊艳”。CSS 不再是设计师的专属——它是每个前端开发者手中的魔法画笔。</p>
-<blockquote>
-<p>好的设计不是让事物更复杂，而是让复杂的事物变得优雅。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>技术教程</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-        <tag>前端</tag>
-        <tag>设计</tag>
-        <tag>Web开发</tag>
-        <tag>动画</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>为什么 Rust 正在改变系统编程的未来</title>
-    <url>/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/</url>
-    <content><![CDATA[<h2 id="编程语言的进化方向"><a href="#编程语言的进化方向" class="headerlink" title="编程语言的进化方向"></a>编程语言的进化方向</h2><p>从 C 到 C++，从 Java 到 Go，每一代系统编程语言都在尝试解决前一代的痛点。而 Rust 的出现，真正改变了一个根本性难题——<strong>如何在保证内存安全的同时不牺牲性能</strong>。</p>
-<h2 id="🦀-所有权系统：Rust-的核心创新"><a href="#🦀-所有权系统：Rust-的核心创新" class="headerlink" title="🦀 所有权系统：Rust 的核心创新"></a>🦀 所有权系统：Rust 的核心创新</h2><figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1;  <span class="comment">// s1 的所有权转移给 s2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// println!(&quot;&#123;&#125;&quot;, s1); // ❌ 编译错误！s1 已失效</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s2);    <span class="comment">// ✅ 正常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="三条核心规则："><a href="#三条核心规则：" class="headerlink" title="三条核心规则："></a>三条核心规则：</h3><ol>
-<li>Rust 中的每个值都有一个<strong>所有者</strong></li>
-<li>同一时间只能有<strong>一个所有者</strong></li>
-<li>当所有者离开作用域，值会被<strong>自动释放</strong></li>
-</ol>
-<h2 id="⚡-零成本抽象"><a href="#⚡-零成本抽象" class="headerlink" title="⚡ 零成本抽象"></a>⚡ 零成本抽象</h2><p>Rust 的抽象不会带来运行时开销：</p>
-<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 迭代器链在编译时会被优化为简单的循环</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">sum</span>: <span class="type">i32</span> = (<span class="number">0</span>..<span class="number">1000</span>)</span><br><span class="line">    .<span class="title function_ invoke__">filter</span>(|x| x % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    .<span class="title function_ invoke__">map</span>(|x| x * x)</span><br><span class="line">    .<span class="title function_ invoke__">sum</span>();</span><br></pre></td></tr></table></figure>
-
-<p>编译器生成的机器码与手写的 C 循环完全等价。</p>
-<h2 id="🔧-实际应用场景"><a href="#🔧-实际应用场景" class="headerlink" title="🔧 实际应用场景"></a>🔧 实际应用场景</h2><table>
-<thead>
-<tr>
-<th>领域</th>
-<th>代表项目</th>
-<th>为什么选 Rust</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>操作系统</td>
-<td>Redox OS</td>
-<td>内存安全 + 高性能</td>
-</tr>
-<tr>
-<td>浏览器引擎</td>
-<td>Servo</td>
-<td>并行渲染</td>
-</tr>
-<tr>
-<td>区块链</td>
-<td>Solana, Polkadot</td>
-<td>安全 + 并发</td>
-</tr>
-<tr>
-<td>数据库</td>
-<td>TiKV, SurrealDB</td>
-<td>可靠性</td>
-</tr>
-<tr>
-<td>CLI 工具</td>
-<td>ripgrep, fd, bat</td>
-<td>极致性能</td>
-</tr>
-<tr>
-<td>WebAssembly</td>
-<td>Yew, Leptos</td>
-<td>体积小 + 快</td>
-</tr>
-</tbody></table>
-<h2 id="📊-性能对比"><a href="#📊-性能对比" class="headerlink" title="📊 性能对比"></a>📊 性能对比</h2><p>内部测试（字符串处理 1M 次）：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:         ████████████ 120ms</span><br><span class="line">Rust:      ████████████ 122ms  </span><br><span class="line">Go:        ████████████████ 180ms</span><br><span class="line">Python:    ████████████████████████████████ 380ms</span><br><span class="line">JavaScript:████████████████████████████████████ 420ms</span><br></pre></td></tr></table></figure>
-
-<p>Rust 的性能几乎等同于 C，远超其他高级语言。</p>
-<h2 id="🎓-学习曲线与回报"><a href="#🎓-学习曲线与回报" class="headerlink" title="🎓 学习曲线与回报"></a>🎓 学习曲线与回报</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">难度</span><br><span class="line">  │    ╭─ Rust ─╮</span><br><span class="line">  │   ╱          ╲</span><br><span class="line">  │  ╱            ╲___</span><br><span class="line">  │ ╱    C++         ╲___ Go</span><br><span class="line">  │╱  C                  ╲___ Python</span><br><span class="line">  └────────────────────────────▶ 时间</span><br></pre></td></tr></table></figure>
-
-<p>Rust 的学习曲线确实陡峭，但一旦跨越，你将获得：</p>
-<ul>
-<li>对内存管理的深刻理解</li>
-<li>编译器帮你避免 90% 的 Bug</li>
-<li>写出既安全又高效的代码的能力</li>
-</ul>
-<h2 id="🔮-未来展望"><a href="#🔮-未来展望" class="headerlink" title="🔮 未来展望"></a>🔮 未来展望</h2><p>Rust 正在渗透到从前端（WASM）到内核（Linux Kernel）的每个角落。它不是要取代所有语言，而是在那些对安全性和性能同时有极致要求的场景，提供了前所未有的解决方案。</p>
-<blockquote>
-<p>2022 年 Linux 内核正式接纳 Rust，这是对这个”十年来最受欢迎的编程语言”最有力的背书。</p>
-</blockquote>
-<p>开始你的 Rust 之旅吧——它可能很难，但绝对值得。</p>
-]]></content>
-      <categories>
-        <category>技术思考</category>
-      </categories>
-      <tags>
-        <tag>Rust</tag>
-        <tag>系统编程</tag>
-        <tag>性能</tag>
-        <tag>内存安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>探索 AI Agent：构建你的第一个智能体</title>
-    <url>/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</url>
-    <content><![CDATA[<h2 id="什么是-AI-Agent？"><a href="#什么是-AI-Agent？" class="headerlink" title="什么是 AI Agent？"></a>什么是 AI Agent？</h2><p>AI Agent（智能体）是能够自主感知环境、做出决策并执行动作的 AI 系统。与传统的 LLM 聊天不同，Agent 可以：</p>
-<ul>
-<li>🔍 <strong>使用工具</strong> — 搜索网络、查询数据库、调用 API</li>
-<li>🧠 <strong>规划推理</strong> — 分解任务、制定步骤、自我修正</li>
-<li>🔄 <strong>记忆循环</strong> — 保留上下文、从交互中学习</li>
-</ul>
-<h2 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────┐     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">│   用户输入   │ ──▶ │  LLM 推理引擎 │ ──▶ │  工具调用器  │</span><br><span class="line">└─────────────┘     └──────────────┘     └─────────────┘</span><br><span class="line">                            │                      │</span><br><span class="line">                            ▼                      ▼</span><br><span class="line">                     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">                     │   记忆存储    │ ◀── │  结果整合器  │</span><br><span class="line">                     └──────────────┘     └─────────────┘</span><br></pre></td></tr></table></figure>
-
-<h2 id="快速上手：构建搜索-Agent"><a href="#快速上手：构建搜索-Agent" class="headerlink" title="快速上手：构建搜索 Agent"></a>快速上手：构建搜索 Agent</h2><p>使用 LangChain 构建一个能搜索网络的智能体：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> initialize_agent, Tool</span><br><span class="line"><span class="keyword">from</span> langchain.llms <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.tools <span class="keyword">import</span> DuckDuckGoSearchRun</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 LLM</span></span><br><span class="line">llm = OpenAI(temperature=<span class="number">0.7</span>, model=<span class="string">&quot;gpt-4&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义工具</span></span><br><span class="line">search = DuckDuckGoSearchRun()</span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;Search&quot;</span>,</span><br><span class="line">        func=search.run,</span><br><span class="line">        description=<span class="string">&quot;搜索互联网获取最新信息&quot;</span></span><br><span class="line">    )</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 Agent</span></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools, llm,</span><br><span class="line">    agent=<span class="string">&quot;zero-shot-react-description&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">agent.run(<span class="string">&quot;2026年最热门的编程语言是什么？&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Agent-的思维链"><a href="#Agent-的思维链" class="headerlink" title="Agent 的思维链"></a>Agent 的思维链</h2><p>当你向 Agent 提问时，它会经历这样的过程：</p>
-<ol>
-<li><strong>Thought</strong>: “我需要搜索 2026 年编程语言排行”</li>
-<li><strong>Action</strong>: 调用 Search 工具</li>
-<li><strong>Observation</strong>: 获取搜索结果</li>
-<li><strong>Thought</strong>: “根据结果，我可以给出答案了”</li>
-<li><strong>Final Answer</strong>: 整理后的回答</li>
-</ol>
-<h2 id="实用场景"><a href="#实用场景" class="headerlink" title="实用场景"></a>实用场景</h2><table>
-<thead>
-<tr>
-<th>场景</th>
-<th>工具组合</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>代码助手</td>
-<td>文件读写 + Shell + 代码执行</td>
-<td>自动修复 Bug</td>
-</tr>
-<tr>
-<td>数据分析</td>
-<td>SQL + Python + 绘图库</td>
-<td>自动生成报告</td>
-</tr>
-<tr>
-<td>客服机器人</td>
-<td>知识库 + CRM + 工单系统</td>
-<td>7×24 智能服务</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p><strong>提示</strong>: Agent 的能力上限取决于你给它提供的工具。精心设计工具接口，是构建强大 Agent 的关键。</p>
-</blockquote>
-<h2 id="进阶方向"><a href="#进阶方向" class="headerlink" title="进阶方向"></a>进阶方向</h2><ol>
-<li><strong>多 Agent 协作</strong> — 多个专门 Agent 分工合作</li>
-<li><strong>RAG + Agent</strong> — 结合检索增强生成</li>
-<li><strong>Human-in-the-loop</strong> — 关键决策由人确认</li>
-</ol>
-<p>AI Agent 正在重新定义人机交互的方式。现在就开始构建你的第一个智能体吧！</p>
-]]></content>
-      <categories>
-        <category>技术教程</category>
-      </categories>
-      <tags>
-        <tag>AI</tag>
-        <tag>Agent</tag>
-        <tag>LLM</tag>
-        <tag>LangChain</tag>
-        <tag>Python</tag>
+        <tag>DevOps</tag>
+        <tag>Docker</tag>
+        <tag>开发环境</tag>
+        <tag>容器化</tag>
       </tags>
   </entry>
   <entry>
@@ -543,6 +234,315 @@
         <tag>Hexo</tag>
         <tag>博客</tag>
         <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>探索 AI Agent：构建你的第一个智能体</title>
+    <url>/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</url>
+    <content><![CDATA[<h2 id="什么是-AI-Agent？"><a href="#什么是-AI-Agent？" class="headerlink" title="什么是 AI Agent？"></a>什么是 AI Agent？</h2><p>AI Agent（智能体）是能够自主感知环境、做出决策并执行动作的 AI 系统。与传统的 LLM 聊天不同，Agent 可以：</p>
+<ul>
+<li>🔍 <strong>使用工具</strong> — 搜索网络、查询数据库、调用 API</li>
+<li>🧠 <strong>规划推理</strong> — 分解任务、制定步骤、自我修正</li>
+<li>🔄 <strong>记忆循环</strong> — 保留上下文、从交互中学习</li>
+</ul>
+<h2 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────┐     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">│   用户输入   │ ──▶ │  LLM 推理引擎 │ ──▶ │  工具调用器  │</span><br><span class="line">└─────────────┘     └──────────────┘     └─────────────┘</span><br><span class="line">                            │                      │</span><br><span class="line">                            ▼                      ▼</span><br><span class="line">                     ┌──────────────┐     ┌─────────────┐</span><br><span class="line">                     │   记忆存储    │ ◀── │  结果整合器  │</span><br><span class="line">                     └──────────────┘     └─────────────┘</span><br></pre></td></tr></table></figure>
+
+<h2 id="快速上手：构建搜索-Agent"><a href="#快速上手：构建搜索-Agent" class="headerlink" title="快速上手：构建搜索 Agent"></a>快速上手：构建搜索 Agent</h2><p>使用 LangChain 构建一个能搜索网络的智能体：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> initialize_agent, Tool</span><br><span class="line"><span class="keyword">from</span> langchain.llms <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.tools <span class="keyword">import</span> DuckDuckGoSearchRun</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 LLM</span></span><br><span class="line">llm = OpenAI(temperature=<span class="number">0.7</span>, model=<span class="string">&quot;gpt-4&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义工具</span></span><br><span class="line">search = DuckDuckGoSearchRun()</span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;Search&quot;</span>,</span><br><span class="line">        func=search.run,</span><br><span class="line">        description=<span class="string">&quot;搜索互联网获取最新信息&quot;</span></span><br><span class="line">    )</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 Agent</span></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools, llm,</span><br><span class="line">    agent=<span class="string">&quot;zero-shot-react-description&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">agent.run(<span class="string">&quot;2026年最热门的编程语言是什么？&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Agent-的思维链"><a href="#Agent-的思维链" class="headerlink" title="Agent 的思维链"></a>Agent 的思维链</h2><p>当你向 Agent 提问时，它会经历这样的过程：</p>
+<ol>
+<li><strong>Thought</strong>: “我需要搜索 2026 年编程语言排行”</li>
+<li><strong>Action</strong>: 调用 Search 工具</li>
+<li><strong>Observation</strong>: 获取搜索结果</li>
+<li><strong>Thought</strong>: “根据结果，我可以给出答案了”</li>
+<li><strong>Final Answer</strong>: 整理后的回答</li>
+</ol>
+<h2 id="实用场景"><a href="#实用场景" class="headerlink" title="实用场景"></a>实用场景</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>工具组合</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码助手</td>
+<td>文件读写 + Shell + 代码执行</td>
+<td>自动修复 Bug</td>
+</tr>
+<tr>
+<td>数据分析</td>
+<td>SQL + Python + 绘图库</td>
+<td>自动生成报告</td>
+</tr>
+<tr>
+<td>客服机器人</td>
+<td>知识库 + CRM + 工单系统</td>
+<td>7×24 智能服务</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>提示</strong>: Agent 的能力上限取决于你给它提供的工具。精心设计工具接口，是构建强大 Agent 的关键。</p>
+</blockquote>
+<h2 id="进阶方向"><a href="#进阶方向" class="headerlink" title="进阶方向"></a>进阶方向</h2><ol>
+<li><strong>多 Agent 协作</strong> — 多个专门 Agent 分工合作</li>
+<li><strong>RAG + Agent</strong> — 结合检索增强生成</li>
+<li><strong>Human-in-the-loop</strong> — 关键决策由人确认</li>
+</ol>
+<p>AI Agent 正在重新定义人机交互的方式。现在就开始构建你的第一个智能体吧！</p>
+]]></content>
+      <categories>
+        <category>技术教程</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+        <tag>Agent</tag>
+        <tag>LLM</tag>
+        <tag>LangChain</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>现代 CSS 魔法：打造令人惊叹的视觉效果</title>
+    <url>/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<h2 id="CSS-不再是”简单样式”"><a href="#CSS-不再是”简单样式”" class="headerlink" title="CSS 不再是”简单样式”"></a>CSS 不再是”简单样式”</h2><p>2026 年的 CSS 已经是一门强大的声明式编程语言。从容器查询到视图过渡，现代 CSS 能实现过去需要 JavaScript 才能达成的效果。</p>
+<h2 id="🎨-玻璃态效果-Glassmorphism"><a href="#🎨-玻璃态效果-Glassmorphism" class="headerlink" title="🎨 玻璃态效果 (Glassmorphism)"></a>🎨 玻璃态效果 (Glassmorphism)</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.glass-card</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.05</span>);</span><br><span class="line">  <span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">20px</span>);</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.1</span>);</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">32px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>核心三要素</strong>:</p>
+<ul>
+<li>半透明背景 + <code>backdrop-filter</code></li>
+<li>细的浅色边框</li>
+<li>柔和的投影</li>
+</ul>
+<h2 id="✨-霓虹发光效果"><a href="#✨-霓虹发光效果" class="headerlink" title="✨ 霓虹发光效果"></a>✨ 霓虹发光效果</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.neon-text</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">text-shadow</span>:</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">7px</span> <span class="number">#ff2d95</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span> <span class="number">#ff2d95</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">21px</span> <span class="number">#ff2d95</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">42px</span> <span class="number">#bd00ff</span>,</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">82px</span> <span class="number">#bd00ff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.neon-border</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#00d4ff</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>:</span><br><span class="line">    <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="number">#00d4ff</span>,</span><br><span class="line">    inset <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="number">#00d4ff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="🌀-CSS-动画技巧"><a href="#🌀-CSS-动画技巧" class="headerlink" title="🌀 CSS 动画技巧"></a>🌀 CSS 动画技巧</h2><h3 id="关键帧动画"><a href="#关键帧动画" class="headerlink" title="关键帧动画"></a>关键帧动画</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> float &#123;</span><br><span class="line">  <span class="number">0%</span>, <span class="number">100%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">0</span>) <span class="built_in">rotate</span>(<span class="number">0deg</span>); &#125;</span><br><span class="line">  <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">10px</span>) <span class="built_in">rotate</span>(<span class="number">1deg</span>); &#125;</span><br><span class="line">  <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">5px</span>) <span class="built_in">rotate</span>(-<span class="number">1deg</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.floating</span> &#123; <span class="attribute">animation</span>: float <span class="number">6s</span> ease-in-out infinite; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="滚动驱动动画"><a href="#滚动驱动动画" class="headerlink" title="滚动驱动动画"></a>滚动驱动动画</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> slideIn &#123;</span><br><span class="line">  <span class="selector-tag">from</span> &#123; <span class="attribute">opacity</span>: <span class="number">0</span>; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">100px</span>); &#125;</span><br><span class="line">  <span class="selector-tag">to</span> &#123; <span class="attribute">opacity</span>: <span class="number">1</span>; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.reveal</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: slideIn linear;</span><br><span class="line">  <span class="attribute">animation-timeline</span>: <span class="built_in">view</span>();</span><br><span class="line">  <span class="attribute">animation-range</span>: entry <span class="number">0%</span> entry <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="🔮-2026-CSS-新特性速览"><a href="#🔮-2026-CSS-新特性速览" class="headerlink" title="🔮 2026 CSS 新特性速览"></a>🔮 2026 CSS 新特性速览</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>用途</th>
+<th>浏览器支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@scope</code></td>
+<td>样式作用域隔离</td>
+<td>✅ 全面支持</td>
+</tr>
+<tr>
+<td><code>nesting</code></td>
+<td>原生嵌套语法</td>
+<td>✅ 全面支持</td>
+</tr>
+<tr>
+<td><code>view-transition</code></td>
+<td>页面过渡动画</td>
+<td>✅ 主流支持</td>
+</tr>
+<tr>
+<td><code>color-mix()</code></td>
+<td>颜色混合函数</td>
+<td>✅ 全面支持</td>
+</tr>
+<tr>
+<td><code>text-wrap: balance</code></td>
+<td>文本平衡换行</td>
+<td>✅ 全面支持</td>
+</tr>
+</tbody></table>
+<h2 id="🎯-实战技巧"><a href="#🎯-实战技巧" class="headerlink" title="🎯 实战技巧"></a>🎯 实战技巧</h2><h3 id="1-CSS-变量构建设计系统"><a href="#1-CSS-变量构建设计系统" class="headerlink" title="1. CSS 变量构建设计系统"></a>1. CSS 变量构建设计系统</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attr">--color-primary</span>: <span class="number">#ff2d95</span>;</span><br><span class="line">  <span class="attr">--color-secondary</span>: <span class="number">#00d4ff</span>;</span><br><span class="line">  <span class="attr">--space-xs</span>: <span class="number">0.25rem</span>;</span><br><span class="line">  <span class="attr">--space-sm</span>: <span class="number">0.5rem</span>;</span><br><span class="line">  <span class="attr">--space-md</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attr">--space-lg</span>: <span class="number">2rem</span>;</span><br><span class="line">  <span class="attr">--radius</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-容器查询实现组件级响应"><a href="#2-容器查询实现组件级响应" class="headerlink" title="2. 容器查询实现组件级响应"></a>2. 容器查询实现组件级响应</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@container</span> (<span class="attribute">min-width</span>: <span class="number">400px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.card</span> &#123; <span class="attribute">grid-template-columns</span>: <span class="number">1</span>fr <span class="number">1</span>fr; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现代 CSS 的边界在不断扩展。掌握这些新特性，能让你的网页从”能用”进化到”惊艳”。CSS 不再是设计师的专属——它是每个前端开发者手中的魔法画笔。</p>
+<blockquote>
+<p>好的设计不是让事物更复杂，而是让复杂的事物变得优雅。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>技术教程</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>前端</tag>
+        <tag>设计</tag>
+        <tag>Web开发</tag>
+        <tag>动画</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>给 Hexo 博客添加 Google Analytics 统计访问量</title>
+    <url>/2026/05/23/Hexo%E6%B7%BB%E5%8A%A0Google-Analytics%E7%BB%9F%E8%AE%A1/</url>
+    <content><![CDATA[<h2 id="为什么要加统计？"><a href="#为什么要加统计？" class="headerlink" title="为什么要加统计？"></a>为什么要加统计？</h2><p>写了文章发到网上，总想知道有没有人在看——哪篇最受欢迎、读者从哪来、用什么设备。Google Analytics（GA）免费、强大，几行代码就能给博客装上。</p>
+<h2 id="第一步：注册-Google-Analytics"><a href="#第一步：注册-Google-Analytics" class="headerlink" title="第一步：注册 Google Analytics"></a>第一步：注册 Google Analytics</h2><ol>
+<li>打开 <a href="https://analytics.google.com/">https://analytics.google.com</a></li>
+<li>用 Google 账号登录（没有的话去 mail.google.com 注册一个）</li>
+<li>点击「创建账号」→「创建媒体资源」</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">账号名称：我的博客</span><br><span class="line">媒体资源名称：暖墨小栈</span><br><span class="line">时区：中国 (GMT+08:00)</span><br><span class="line">货币：人民币 (CNY)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>选择「网站」平台</li>
+<li>填写网址 <code>https://你的域名.github.io</code></li>
+<li>创建后会得到一个 <strong>Measurement ID</strong>，格式 <code>G-XXXXXXXXXX</code></li>
+</ol>
+<h2 id="第二步：在-Hexo-主题中集成"><a href="#第二步：在-Hexo-主题中集成" class="headerlink" title="第二步：在 Hexo 主题中集成"></a>第二步：在 Hexo 主题中集成</h2><p>以我的暖墨主题为例，在主题 <code>_config.yml</code> 中添加：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">google_analytics:</span></span><br><span class="line">  <span class="attr">tracking_id:</span> <span class="string">G-YG72B0J9WX</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在主题的 <code>layout/_partial/</code> 目录下创建 <code>ga.ejs</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.google_analytics &amp;&amp; theme.google_analytics.tracking_id) &#123; %&gt;</span><br><span class="line">&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=&lt;%= theme.google_analytics.tracking_id %&gt;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  window.dataLayer = window.dataLayer || [];</span><br><span class="line">  function gtag()&#123;dataLayer.push(arguments);&#125;</span><br><span class="line">  gtag(&#x27;js&#x27;, new Date());</span><br><span class="line">  gtag(&#x27;config&#x27;, &#x27;&lt;%= theme.google_analytics.tracking_id %&gt;&#x27;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>head.ejs</code> 的 <code>&lt;head&gt;</code> 标签内引入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;%- partial(&#x27;_partial/ga&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三步：重新构建部署"><a href="#第三步：重新构建部署" class="headerlink" title="第三步：重新构建部署"></a>第三步：重新构建部署</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx hexo clean &amp;&amp; npx hexo generate &amp;&amp; npx hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>部署后用浏览器打开自己的博客，回到 GA 页面查看「实时」报告——如果看到 1 个活跃用户，说明配置成功 ✓</p>
+<h2 id="GA-能看什么？"><a href="#GA-能看什么？" class="headerlink" title="GA 能看什么？"></a>GA 能看什么？</h2><h3 id="📊-实时报告"><a href="#📊-实时报告" class="headerlink" title="📊 实时报告"></a>📊 实时报告</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当前在线用户数</span><br><span class="line">当前在浏览哪个页面</span><br><span class="line">来自哪个城市</span><br></pre></td></tr></table></figure>
+
+<h3 id="📈-生命周期报告"><a href="#📈-生命周期报告" class="headerlink" title="📈 生命周期报告"></a>📈 生命周期报告</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户数</td>
+<td>有多少独立访客</td>
+</tr>
+<tr>
+<td>会话数</td>
+<td>访问了多少次</td>
+</tr>
+<tr>
+<td>页面浏览量</td>
+<td>总共看了多少页</td>
+</tr>
+<tr>
+<td>平均互动时长</td>
+<td>每次停留多久</td>
+</tr>
+<tr>
+<td>跳出率</td>
+<td>看了一眼就走的比例</td>
+</tr>
+</tbody></table>
+<h3 id="🌍-受众分析"><a href="#🌍-受众分析" class="headerlink" title="🌍 受众分析"></a>🌍 受众分析</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">国家/城市分布</span><br><span class="line">设备类型（手机/电脑/平板）</span><br><span class="line">浏览器和操作系统</span><br></pre></td></tr></table></figure>
+
+<h3 id="📝-内容分析"><a href="#📝-内容分析" class="headerlink" title="📝 内容分析"></a>📝 内容分析</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">哪篇文章阅读量最高</span><br><span class="line">读者从哪篇文章进来</span><br><span class="line">又在哪篇文章离开</span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶技巧"><a href="#进阶技巧" class="headerlink" title="进阶技巧"></a>进阶技巧</h2><h3 id="排除自己的访问"><a href="#排除自己的访问" class="headerlink" title="排除自己的访问"></a>排除自己的访问</h3><p>在 GA 管理 → 数据流 → 配置代码设置 → 定义内部流量，添加规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">匹配类型：IP 地址</span><br><span class="line">值：你家的 IP</span><br></pre></td></tr></table></figure>
+
+<p>这样你自己的浏览就不会污染数据了。</p>
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><p>在文章里加按钮点击追踪：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;gtag(&#x27;event&#x27;, &#x27;download&#x27;, &#123; event_category: &#x27;resource&#x27; &#125;)&quot;</span>&gt;</span></span><br><span class="line">  下载文件</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="目标事件追踪"><a href="#目标事件追踪" class="headerlink" title="目标事件追踪"></a>目标事件追踪</h3><p>可以设置「访问关于页」、「停留超过 2 分钟」等作为转化目标，衡量博客的互动质量。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">注册 GA → 拿 ID → 加配置 → 重新部署</span><br></pre></td></tr></table></figure>
+
+<p>五分钟搞定，换来的是对自己博客读者群体的清晰认知。知道读者喜欢什么，你才知道该写什么。</p>
+<blockquote>
+<p>数据不说谎，它让你写出更受欢迎的内容。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>技术教程</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>博客</tag>
+        <tag>Google Analytics</tag>
+        <tag>统计分析</tag>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为什么 Rust 正在改变系统编程的未来</title>
+    <url>/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/</url>
+    <content><![CDATA[<h2 id="编程语言的进化方向"><a href="#编程语言的进化方向" class="headerlink" title="编程语言的进化方向"></a>编程语言的进化方向</h2><p>从 C 到 C++，从 Java 到 Go，每一代系统编程语言都在尝试解决前一代的痛点。而 Rust 的出现，真正改变了一个根本性难题——<strong>如何在保证内存安全的同时不牺牲性能</strong>。</p>
+<h2 id="🦀-所有权系统：Rust-的核心创新"><a href="#🦀-所有权系统：Rust-的核心创新" class="headerlink" title="🦀 所有权系统：Rust 的核心创新"></a>🦀 所有权系统：Rust 的核心创新</h2><figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1;  <span class="comment">// s1 的所有权转移给 s2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// println!(&quot;&#123;&#125;&quot;, s1); // ❌ 编译错误！s1 已失效</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s2);    <span class="comment">// ✅ 正常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三条核心规则："><a href="#三条核心规则：" class="headerlink" title="三条核心规则："></a>三条核心规则：</h3><ol>
+<li>Rust 中的每个值都有一个<strong>所有者</strong></li>
+<li>同一时间只能有<strong>一个所有者</strong></li>
+<li>当所有者离开作用域，值会被<strong>自动释放</strong></li>
+</ol>
+<h2 id="⚡-零成本抽象"><a href="#⚡-零成本抽象" class="headerlink" title="⚡ 零成本抽象"></a>⚡ 零成本抽象</h2><p>Rust 的抽象不会带来运行时开销：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 迭代器链在编译时会被优化为简单的循环</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">sum</span>: <span class="type">i32</span> = (<span class="number">0</span>..<span class="number">1000</span>)</span><br><span class="line">    .<span class="title function_ invoke__">filter</span>(|x| x % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    .<span class="title function_ invoke__">map</span>(|x| x * x)</span><br><span class="line">    .<span class="title function_ invoke__">sum</span>();</span><br></pre></td></tr></table></figure>
+
+<p>编译器生成的机器码与手写的 C 循环完全等价。</p>
+<h2 id="🔧-实际应用场景"><a href="#🔧-实际应用场景" class="headerlink" title="🔧 实际应用场景"></a>🔧 实际应用场景</h2><table>
+<thead>
+<tr>
+<th>领域</th>
+<th>代表项目</th>
+<th>为什么选 Rust</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统</td>
+<td>Redox OS</td>
+<td>内存安全 + 高性能</td>
+</tr>
+<tr>
+<td>浏览器引擎</td>
+<td>Servo</td>
+<td>并行渲染</td>
+</tr>
+<tr>
+<td>区块链</td>
+<td>Solana, Polkadot</td>
+<td>安全 + 并发</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>TiKV, SurrealDB</td>
+<td>可靠性</td>
+</tr>
+<tr>
+<td>CLI 工具</td>
+<td>ripgrep, fd, bat</td>
+<td>极致性能</td>
+</tr>
+<tr>
+<td>WebAssembly</td>
+<td>Yew, Leptos</td>
+<td>体积小 + 快</td>
+</tr>
+</tbody></table>
+<h2 id="📊-性能对比"><a href="#📊-性能对比" class="headerlink" title="📊 性能对比"></a>📊 性能对比</h2><p>内部测试（字符串处理 1M 次）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:         ████████████ 120ms</span><br><span class="line">Rust:      ████████████ 122ms  </span><br><span class="line">Go:        ████████████████ 180ms</span><br><span class="line">Python:    ████████████████████████████████ 380ms</span><br><span class="line">JavaScript:████████████████████████████████████ 420ms</span><br></pre></td></tr></table></figure>
+
+<p>Rust 的性能几乎等同于 C，远超其他高级语言。</p>
+<h2 id="🎓-学习曲线与回报"><a href="#🎓-学习曲线与回报" class="headerlink" title="🎓 学习曲线与回报"></a>🎓 学习曲线与回报</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">难度</span><br><span class="line">  │    ╭─ Rust ─╮</span><br><span class="line">  │   ╱          ╲</span><br><span class="line">  │  ╱            ╲___</span><br><span class="line">  │ ╱    C++         ╲___ Go</span><br><span class="line">  │╱  C                  ╲___ Python</span><br><span class="line">  └────────────────────────────▶ 时间</span><br></pre></td></tr></table></figure>
+
+<p>Rust 的学习曲线确实陡峭，但一旦跨越，你将获得：</p>
+<ul>
+<li>对内存管理的深刻理解</li>
+<li>编译器帮你避免 90% 的 Bug</li>
+<li>写出既安全又高效的代码的能力</li>
+</ul>
+<h2 id="🔮-未来展望"><a href="#🔮-未来展望" class="headerlink" title="🔮 未来展望"></a>🔮 未来展望</h2><p>Rust 正在渗透到从前端（WASM）到内核（Linux Kernel）的每个角落。它不是要取代所有语言，而是在那些对安全性和性能同时有极致要求的场景，提供了前所未有的解决方案。</p>
+<blockquote>
+<p>2022 年 Linux 内核正式接纳 Rust，这是对这个”十年来最受欢迎的编程语言”最有力的背书。</p>
+</blockquote>
+<p>开始你的 Rust 之旅吧——它可能很难，但绝对值得。</p>
+]]></content>
+      <categories>
+        <category>技术思考</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>系统编程</tag>
+        <tag>性能</tag>
+        <tag>内存安全</tag>
       </tags>
   </entry>
 </search>
