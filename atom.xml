@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>暖墨小栈</title>
-  <icon>https://yucu666.github.io/icon.png</icon>
+  <icon>https://yucu.github.io/icon.png</icon>
   <subtitle>记录技术与生活的小角落，温润如纸，淡雅如墨</subtitle>
-  <link href="https://yucu666.github.io/atom.xml" rel="self"/>
+  <link href="https://yucu.github.io/atom.xml" rel="self"/>
   
-  <link href="https://yucu666.github.io/"/>
+  <link href="https://yucu.github.io/"/>
   <updated>2026-05-22T22:10:07.671Z</updated>
-  <id>https://yucu666.github.io/</id>
+  <id>https://yucu.github.io/</id>
   
   <author>
     <name>yucu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>给 Hexo 博客添加 Google Analytics 统计访问量</title>
-    <link href="https://yucu666.github.io/2026/05/23/Hexo%E6%B7%BB%E5%8A%A0Google-Analytics%E7%BB%9F%E8%AE%A1/"/>
-    <id>https://yucu666.github.io/2026/05/23/Hexo%E6%B7%BB%E5%8A%A0Google-Analytics%E7%BB%9F%E8%AE%A1/</id>
+    <link href="https://yucu.github.io/2026/05/23/Hexo%E6%B7%BB%E5%8A%A0Google-Analytics%E7%BB%9F%E8%AE%A1/"/>
+    <id>https://yucu.github.io/2026/05/23/Hexo%E6%B7%BB%E5%8A%A0Google-Analytics%E7%BB%9F%E8%AE%A1/</id>
     <published>2026-05-23T08:00:00.000Z</published>
     <updated>2026-05-22T22:10:07.671Z</updated>
     
@@ -34,25 +34,25 @@
     
     
     
-    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    <category term="技术教程" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Hexo" scheme="https://yucu666.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://yucu.github.io/tags/Hexo/"/>
     
-    <category term="Google Analytics" scheme="https://yucu666.github.io/tags/Google-Analytics/"/>
+    <category term="Google Analytics" scheme="https://yucu.github.io/tags/Google-Analytics/"/>
     
-    <category term="博客" scheme="https://yucu666.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="博客" scheme="https://yucu.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
-    <category term="统计分析" scheme="https://yucu666.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90/"/>
+    <category term="统计分析" scheme="https://yucu.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90/"/>
     
-    <category term="教程" scheme="https://yucu666.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://yucu.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>用 GitHub Actions 自动化博客构建与部署</title>
-    <link href="https://yucu666.github.io/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
-    <id>https://yucu666.github.io/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/</id>
+    <link href="https://yucu.github.io/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
+    <id>https://yucu.github.io/2026/05/23/GitHub-Actions%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/</id>
     <published>2026-05-23T06:00:00.000Z</published>
     <updated>2026-05-22T21:38:18.652Z</updated>
     
@@ -68,25 +68,25 @@
     
     
     
-    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    <category term="技术教程" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="DevOps" scheme="https://yucu666.github.io/tags/DevOps/"/>
+    <category term="DevOps" scheme="https://yucu.github.io/tags/DevOps/"/>
     
-    <category term="GitHub Actions" scheme="https://yucu666.github.io/tags/GitHub-Actions/"/>
+    <category term="GitHub Actions" scheme="https://yucu.github.io/tags/GitHub-Actions/"/>
     
-    <category term="CI/CD" scheme="https://yucu666.github.io/tags/CI-CD/"/>
+    <category term="CI/CD" scheme="https://yucu.github.io/tags/CI-CD/"/>
     
-    <category term="Hexo" scheme="https://yucu666.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://yucu.github.io/tags/Hexo/"/>
     
-    <category term="自动化" scheme="https://yucu666.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    <category term="自动化" scheme="https://yucu.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>探索 AI Agent：构建你的第一个智能体</title>
-    <link href="https://yucu666.github.io/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/"/>
-    <id>https://yucu666.github.io/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</id>
+    <link href="https://yucu.github.io/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/"/>
+    <id>https://yucu.github.io/2026/05/20/%E6%8E%A2%E7%B4%A2AI-Agent%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93/</id>
     <published>2026-05-20T02:00:00.000Z</published>
     <updated>2026-05-22T19:53:32.876Z</updated>
     
@@ -101,25 +101,25 @@
     
     
     
-    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    <category term="技术教程" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="AI" scheme="https://yucu666.github.io/tags/AI/"/>
+    <category term="AI" scheme="https://yucu.github.io/tags/AI/"/>
     
-    <category term="Agent" scheme="https://yucu666.github.io/tags/Agent/"/>
+    <category term="Agent" scheme="https://yucu.github.io/tags/Agent/"/>
     
-    <category term="LLM" scheme="https://yucu666.github.io/tags/LLM/"/>
+    <category term="LLM" scheme="https://yucu.github.io/tags/LLM/"/>
     
-    <category term="LangChain" scheme="https://yucu666.github.io/tags/LangChain/"/>
+    <category term="LangChain" scheme="https://yucu.github.io/tags/LangChain/"/>
     
-    <category term="Python" scheme="https://yucu666.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://yucu.github.io/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>现代 CSS 魔法：打造令人惊叹的视觉效果</title>
-    <link href="https://yucu666.github.io/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/"/>
-    <id>https://yucu666.github.io/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</id>
+    <link href="https://yucu.github.io/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/"/>
+    <id>https://yucu.github.io/2026/05/18/%E7%8E%B0%E4%BB%A3CSS%E9%AD%94%E6%B3%95%E8%A7%86%E8%A7%89%E6%95%88%E6%9E%9C/</id>
     <published>2026-05-18T06:30:00.000Z</published>
     <updated>2026-05-22T19:53:47.993Z</updated>
     
@@ -134,25 +134,25 @@
     
     
     
-    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    <category term="技术教程" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="CSS" scheme="https://yucu666.github.io/tags/CSS/"/>
+    <category term="CSS" scheme="https://yucu.github.io/tags/CSS/"/>
     
-    <category term="前端" scheme="https://yucu666.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    <category term="前端" scheme="https://yucu.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
-    <category term="设计" scheme="https://yucu666.github.io/tags/%E8%AE%BE%E8%AE%A1/"/>
+    <category term="设计" scheme="https://yucu.github.io/tags/%E8%AE%BE%E8%AE%A1/"/>
     
-    <category term="Web开发" scheme="https://yucu666.github.io/tags/Web%E5%BC%80%E5%8F%91/"/>
+    <category term="Web开发" scheme="https://yucu.github.io/tags/Web%E5%BC%80%E5%8F%91/"/>
     
-    <category term="动画" scheme="https://yucu666.github.io/tags/%E5%8A%A8%E7%94%BB/"/>
+    <category term="动画" scheme="https://yucu.github.io/tags/%E5%8A%A8%E7%94%BB/"/>
     
   </entry>
   
   <entry>
     <title>为什么 Rust 正在改变系统编程的未来</title>
-    <link href="https://yucu666.github.io/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/"/>
-    <id>https://yucu666.github.io/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/</id>
+    <link href="https://yucu.github.io/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/"/>
+    <id>https://yucu.github.io/2026/05/15/Rust%E6%94%B9%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%9C%AA%E6%9D%A5/</id>
     <published>2026-05-15T01:00:00.000Z</published>
     <updated>2026-05-22T19:54:04.560Z</updated>
     
@@ -167,23 +167,23 @@
     
     
     
-    <category term="技术思考" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
+    <category term="技术思考" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
     
     
-    <category term="Rust" scheme="https://yucu666.github.io/tags/Rust/"/>
+    <category term="Rust" scheme="https://yucu.github.io/tags/Rust/"/>
     
-    <category term="系统编程" scheme="https://yucu666.github.io/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"/>
+    <category term="系统编程" scheme="https://yucu.github.io/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"/>
     
-    <category term="性能" scheme="https://yucu666.github.io/tags/%E6%80%A7%E8%83%BD/"/>
+    <category term="性能" scheme="https://yucu.github.io/tags/%E6%80%A7%E8%83%BD/"/>
     
-    <category term="内存安全" scheme="https://yucu666.github.io/tags/%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8/"/>
+    <category term="内存安全" scheme="https://yucu.github.io/tags/%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8/"/>
     
   </entry>
   
   <entry>
     <title>用 Docker 构建完美开发环境</title>
-    <link href="https://yucu666.github.io/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    <id>https://yucu666.github.io/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
+    <link href="https://yucu.github.io/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>https://yucu.github.io/2026/05/10/Docker%E6%9E%84%E5%BB%BA%E5%AE%8C%E7%BE%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
     <published>2026-05-10T08:00:00.000Z</published>
     <updated>2026-05-22T19:54:20.999Z</updated>
     
@@ -198,23 +198,23 @@
     
     
     
-    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    <category term="技术教程" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Docker" scheme="https://yucu666.github.io/tags/Docker/"/>
+    <category term="Docker" scheme="https://yucu.github.io/tags/Docker/"/>
     
-    <category term="DevOps" scheme="https://yucu666.github.io/tags/DevOps/"/>
+    <category term="DevOps" scheme="https://yucu.github.io/tags/DevOps/"/>
     
-    <category term="开发环境" scheme="https://yucu666.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <category term="开发环境" scheme="https://yucu.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
-    <category term="容器化" scheme="https://yucu666.github.io/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
+    <category term="容器化" scheme="https://yucu.github.io/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>如何搭建个人技术博客</title>
-    <link href="https://yucu666.github.io/2026/01/05/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://yucu666.github.io/2026/01/05/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</id>
+    <link href="https://yucu.github.io/2026/01/05/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://yucu.github.io/2026/01/05/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</id>
     <published>2026-01-05T12:44:07.000Z</published>
     <updated>2026-01-05T12:44:22.245Z</updated>
     
@@ -229,14 +229,14 @@
     
     
     
-    <category term="技术教程" scheme="https://yucu666.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
+    <category term="技术教程" scheme="https://yucu.github.io/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"/>
     
     
-    <category term="Hexo" scheme="https://yucu666.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://yucu.github.io/tags/Hexo/"/>
     
-    <category term="博客" scheme="https://yucu666.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="博客" scheme="https://yucu.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
-    <category term="GitHub Pages" scheme="https://yucu666.github.io/tags/GitHub-Pages/"/>
+    <category term="GitHub Pages" scheme="https://yucu.github.io/tags/GitHub-Pages/"/>
     
   </entry>
   
